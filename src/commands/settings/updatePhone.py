@@ -5,7 +5,7 @@ class UpdatePhone():
     pass
 
   def run(self, **kwargs):
-    chat_id = kwargs['chat_id']
+    user = kwargs['user']
     message_id = kwargs['message_id']
 
-    updateMessage(chat_id, message_id, text='Envie seu telefone')
+    updateMessage(user['TELEGRAM_ID'], message_id, text='Envie seu telefone')

@@ -5,6 +5,6 @@ class Suporte():
     pass
 
   def run(self, **kwargs):
-    chat_id = kwargs['chat_id']
+    user = kwargs['user']
 
-    sendMessage(chat_id, 'Comando a ser feito')
+    sendMessage(user['TELEGRAM_ID'], 'Comando a ser feito')
