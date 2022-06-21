@@ -11,7 +11,8 @@ def selectUser(id = None, telegram_id = None, stripe_id = None):
     cursor.execute(f"SELECT * FROM users WHERE TELEGRAM_ID = {telegram_id}")
     user = cursor.fetchone()
   elif stripe_id is not None:
-    cursor.execute(f"SELECT * FROM users WHERE STRIPE_ID = {stripe_id}")
+    sql = f"SELECT * FROM users WHERE STRIPE_ID = '{stripe_id}'"
+    cursor.execute(sql)
     user = cursor.fetchone()
   else:
     user = None
@@ -38,7 +39,11 @@ def updateUser(id, telegram_id = None, stripe_id = None, name = None, email = No
       sql += f"{key} = '{value}', "
 
   sql = sql[:-2]
-  sql += f" WHERE ID = {id}"
+
+  if sql == "UPDATE users SE":
+    sql = f"UPDATE users SET STATUS = '{None}' WHERE ID = {id}"
+  else:
+    sql += f" WHERE ID = {id}"
 
   print(sql)
   cursor.execute(sql)

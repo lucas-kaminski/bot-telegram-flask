@@ -17,3 +17,8 @@ def updateMessage(chat_id, message_id, text, buttons = None):
   if buttons is not None:
     data['reply_markup'] = json.dumps({'inline_keyboard': buttons})
   requests.post(url, data=data)
+
+def deleteMessage(chat_id, message_id):
+  url = 'https://api.telegram.org/bot' + token + '/deleteMessage'
+  data = {'chat_id': chat_id, 'message_id': message_id}
+  requests.post(url, data=data)

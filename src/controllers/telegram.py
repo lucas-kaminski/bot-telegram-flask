@@ -23,7 +23,7 @@ class Telegram(Resource):
       valid_commands = ['listarmoedas', 'news', 'pagamento', 'trades', 'analise', 'carteiradotasso', 'fear', 'help', 'links', 'settings', 'start', 'suporte', 'tutoriais']
 
       message_sent_formatted = args['message_sent'].split(' ')[0].removeprefix('/')
-      message_sent_data = args['message_sent'].split(' ')
+      message_sent_data = args['message_sent'].split(' ')[1:]
 
       if message_sent_formatted in valid_commands:
         package = f'commands.{message_sent_formatted}'
@@ -32,12 +32,12 @@ class Telegram(Resource):
         command.run(self, user=args['user'], message_sent_data=message_sent_data)
       else:
         text = 'Comando inválido.'
-        sendMessage(user['TELEGRAM_ID'], text)
+        sendMessage(args['user']['TELEGRAM_ID'], text)
 
     elif (message_type == 'callback'):
 
         callback_path = args['callback_path']
-        package = f'commands.{callback_path}'
+        package = f'commands{callback_path}'
         class_name = callback_path.split('.')[-1]
         name = class_name[:1].upper() + class_name[1:] # Capitalize first letter
         callback = getattr(__import__(package, fromlist=[name]), name)

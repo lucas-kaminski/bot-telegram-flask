@@ -16,6 +16,7 @@ def messageValidation():
       from_name2 = body['message']['from']['last_name']
 
       print('Recebendo mensagem direta do telegram: ', message_sent)
+      print('Chat ID: ', chat_id)
 
       # Variável orquestradora de ações, possíveis definições:
       # - send_email_message: Envia a mensagem pedindo o email do usuário
@@ -32,13 +33,17 @@ def messageValidation():
       if user is not None:
         # Define o estado da transação baseado no status do usuário
         # - awaiting_email, updating_email, awaiting_phone, updating_phone, completed
+        print('Usuário já cadastrado: ', user['ID'])
         if user['STATUS'] == 'awaiting_email' or user['STATUS'] == 'updating_email':
+          print('Usuário já cadastrado, aguardando email')
           transaction_state = 'validate_email'
         elif user['STATUS'] == 'awaiting_phone' or user['STATUS'] == 'updating_phone':
+          print('Usuário já cadastrado, aguardando telefone')
           transaction_state = 'validate_phone'
         elif user['STATUS'] == 'completed':
           transaction_state = 'validated'
       else:
+        print('Usuário não cadastrado')
         user = insertUser(chat_id=chat_id, name=from_name, status='awaiting_email')
         text = f'Olá, {user["NAME"]}! \n \n'
         text += 'Seja muito bem vindo ao nosso bot! \n \n'
@@ -47,34 +52,54 @@ def messageValidation():
         transaction_state = 'send_email_message'
 
       if (transaction_state == 'validate_email'):
+        print('Validando email')
         if (isValidEmail(message_sent)):
-          user = updateUser(id=user['ID'], email=message_sent, status='awaiting_phone')
-          transaction_state = 'send_phone_message'
+          print('Email válido')
+          status = 'awaiting_phone' if user['STATUS'] == 'awaiting_email' else 'completed'
+          transaction_state = 'validated' if status == 'completed' else 'send_phone_message'
+          user = updateUser(id=user['ID'], email=message_sent, status=status)
+          if (status == 'completed'):
+            message_sent = '/pagamento'
+          print('Usuário atualizado: ', user)
+          print('Estado atualizado: ', transaction_state)
         else:
+          print('Email inválido')
           text = 'Por favor, informe um email válido.'
           sendMessage(chat_id, text)
 
       if user['EMAIL'] is None or transaction_state == 'send_email_message':
+        print('Enviando mensagem de email por email: ', user['EMAIL'], 'e o estado é: ', transaction_state)
         text = 'Para continuar, informe seu e-mail:'
-        buttons = [[{ "text": '📩 Cadastrar email', "callback_data": 'settings/updateEmail' }]]
+        buttons = [[{ "text": '📩 Cadastrar email', "callback_data": '/settings/updateEmail:first_time' }]]
         sendMessage(chat_id, text, buttons)
         return Response(status=200)
 
       if (transaction_state == 'validate_phone'):
+        print('Validando telefone')
         if (isValidPhone(message_sent)):
+          print('Telefone válido')
+          transaction_state = 'validated' if user['STATUS'] == 'updating_phone' else 'validation_completed'
           user = updateUser(id=user['ID'], phone=message_sent, status='completed')
-          transaction_state = 'validation_completed'
+          if (transaction_state == 'validated'):
+            message_sent = '/pagamento'
+          print('Usuário atualizado: ', user)
+          print('Estado atualizado: ', transaction_state)
         else:
+          print('Telefone inválido')
           text = 'Por favor, informe um telefone válido.'
           sendMessage(chat_id, text)
+        print('Usuário atualizado: ', user)
+        print('Estado atualizado: ', transaction_state)
 
       if user['PHONE'] is None or transaction_state == 'send_phone_message':
+        print('Enviando mensagem de telefone por telefone: ', user['PHONE'], 'e o estado é: ', transaction_state)
         text = 'Para continuar, informe seu telefone:'
-        buttons = [[{ "text": '📞 Cadastrar telefone', "callback_data": 'settings/updatePhone' }]]
+        buttons = [[{ "text": '📞 Cadastrar telefone', "callback_data": '/settings/updatePhone:first_time' }]]
         sendMessage(chat_id, text, buttons)
         return Response(status=200)
 
       if (transaction_state == 'validation_completed'):
+        print('Finalizando cadastro')
         text = 'O seu cadastro foi concluído! \n\n'
         text += 'Muito bem vindo ao bot da Financial Move \n\n'
         text += 'Para começarmos, enviaremos algumas informações sobre o que você pode fazer com o bot.'
