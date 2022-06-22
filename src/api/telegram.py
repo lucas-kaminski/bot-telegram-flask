@@ -43,3 +43,16 @@ def deleteMessage(chat_id, message_id):
   url = 'https://api.telegram.org/bot' + token + '/deleteMessage'
   data = {'chat_id': chat_id, 'message_id': message_id}
   requests.post(url, data=data)
+
+def sendPhoto(chat_id, photo, caption = None, buttons = None, parse_mode = 'Markdown'):
+  url = 'https://api.telegram.org/bot' + token + '/sendPhoto'
+  data = {'chat_id': chat_id, 'photo': photo, 'parse_mode': parse_mode}
+  if caption is not None:
+    data['caption'] = caption
+  if buttons is not None:
+    data['reply_markup'] = json.dumps({'inline_keyboard': buttons})
+  try:
+    requests.post(url, data=data)
+  except Exception as e:
+    print(e)
+    print('Error: unable to send photo')
