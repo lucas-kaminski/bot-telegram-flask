@@ -6,5 +6,19 @@ class News():
 
   def run(self, **kwargs):
     user = kwargs['user']
+    print(user)
 
-    sendMessage(user['TELEGRAM_ID'], 'Comando a ser feito')
+    buttons = [
+      [{
+        'text': "Financial Move",
+        'callback_data': "/news/financial",
+      },
+      {
+        'text': "Outros sites",
+        'callback_data': "/news/others",
+      }]
+    ]
+
+    text = 'Escolha a fonte das notícias:'
+
+    sendMessage(user['TELEGRAM_ID'], text, buttons)

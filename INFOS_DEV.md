@@ -1,5 +1,6 @@
 ## Pontos a se desenvolver
 - [ ] Manipulação dos dados via .env
+- [ ] Linting and formatting
 
 ## Necessário um double check
 - [ ] Fluxo do sistema stripe, está sendo feito o fluxo completo mas necessário validar cada ponto para evitar b.o (produtos (preço, recorrência, ...), assinaturas (ativa, desativa, vencida, ...), customers, etc...)
@@ -13,7 +14,7 @@
 - [ ] Json de keyboards para padronização de botões de callback
 
 ## Comandos a serem implementados
-- [ ] /news
+- [ x ] /news
 - [ ] /trades
 - [ ] /analise
   - [ ] Banco de dados
@@ -28,3 +29,7 @@
 - [ ] /start
 - [ ] /suporte
 - [ ] /tutoriais
+
+## Links
+
+https://core.telegram.org/bots/api

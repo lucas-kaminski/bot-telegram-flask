@@ -16,18 +16,19 @@ def setCommands():
   data = {'commands': commands}
   requests.post(url, data=data)
 
-def sendMessage(chat_id, text, buttons = None):
+def sendMessage(chat_id, text, buttons = None, parse_mode = 'Markdown'):
   url = 'https://api.telegram.org/bot' + token + '/sendMessage'
-  data = {'chat_id': chat_id, 'text': text, 'parse_mode': 'Markdown'}
+  data = {'chat_id': chat_id, 'text': text, 'parse_mode': parse_mode}
   if buttons is not None:
     data['reply_markup'] = json.dumps({'inline_keyboard': buttons})
   requests.post(url, data=data)
 
-def updateMessage(chat_id, message_id, text, buttons = None):
+def updateMessage(chat_id, message_id, text, buttons = None, parse_mode = 'Markdown'):
   url = 'https://api.telegram.org/bot' + token + '/editMessageText'
-  data = {'chat_id': chat_id, 'message_id': message_id, 'text': text}
+  data = {'chat_id': chat_id, 'message_id': message_id, 'text': text, 'parse_mode': parse_mode}
   if buttons is not None:
-    data['reply_markup'] = json.dumps({'inline_keyboard': buttons})
+    data['reply_markup'] = json.dumps({'inline_keyboard': buttons},)
+  print(data)
   requests.post(url, data=data)
 
 def deleteMessage(chat_id, message_id):

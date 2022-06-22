@@ -11,6 +11,7 @@ from controllers.internal import NewCoin
 
 app = server.app
 
+# https://gist.github.com/alexaleluia12/e40f1dfa4ce598c2e958611f67d28966
 @app.after_request
 def after_request(response):
   print('logging')
