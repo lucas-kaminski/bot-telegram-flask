@@ -32,8 +32,8 @@ class Telegram(Resource):
     message_type = args['message_type']
     if (message_type == 'message'):
 
-      # TODO: Validação via JSON do setCommands
-      valid_commands = ['listarmoedas', 'news', 'pagamento', 'trades', 'analise', 'carteiradotasso', 'fear', 'help', 'links', 'settings', 'start', 'suporte', 'tutoriais']
+      with open('src/json/availableCommands.json', encoding='utf8') as json_file:
+        valid_commands = json.load(json_file)['available_commands']
 
       message_sent_formatted = args['message_sent'].split(' ')[0].removeprefix('/')
       message_sent_data = args['message_sent'].split(' ')[1:]

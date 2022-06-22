@@ -25,8 +25,8 @@
   - [ ] Pegar autor
 - [ ] /carteiradotasso
   - [ ] Ver como vai funcionar o esquema de indicação
-- [ ] /fear
-- [ ] /help
+- [x] /fear
+- [x] /help
 - [ ] /links
   - [ ] Validação de usuário vip já existe, verificar próximos passos
 - [ ] /settings
