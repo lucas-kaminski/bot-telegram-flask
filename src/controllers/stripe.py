@@ -18,7 +18,7 @@ app, api = server.app, server.api
 # TODO: Env
 stripe.api_key = "sk_test_51LAXyuKaSskwmwx9kzacuFWAsMZoxam4uZi7dqDpoBXpi1CRzDoZ3QDM6DdqhOfVKBAStJVrY8gpqPiI7F7b12UA00nPdF8aqB"
 
-endpoint_secret = 'whsec_VZWdv3AyRH3M2LQMvr94vyYl7HriOGaj'
+endpoint_secret = 'whsec_hCurOXHwhQqmyLXN7QLfFriUOumjPGBK'
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s', filename='./src/logs/stripe.log')
 
@@ -59,6 +59,23 @@ class SyncStripeProducts(Resource):
 
     return jsonify({'status': 'ok'})
 
+@api.route('/stripe/set/webhook')
+class SetWebhook(Resource):
+  def post(self):
+    url = request.get_json()['url']
+
+    old_webhooks = stripe.WebhookEndpoint.list()
+    for i in old_webhooks['data']:
+      stripe.WebhookEndpoint.delete(i['id'])
+
+    endpoint = stripe.WebhookEndpoint.create(
+      url=url + '/stripe/webhook',
+      enabled_events=['*'],
+    )
+
+    return endpoint['secret']
+
+
 @api.route('/stripe/webhook')
 class StripeWebhook(Resource):
   def post(self):
@@ -79,17 +96,14 @@ class StripeWebhook(Resource):
     event_type = event['type']
 
     if event_type == 'customer.created':
-      print('Customer created')
       customer = event['data']['object']
       customer_database_id = customer['metadata']['id']
       updateUser(id=customer_database_id, stripe_id=customer['id'])
     elif event_type == 'customer.deleted':
-      print('Customer deleted')
       customer = event['data']['object']
       customer_database_id = customer['metadata']['id']
       updateUser(id=customer_database_id, stripe_id=None)
     elif event_type == 'product.created':
-      print('Product created')
       product = event['data']['object']
       product_database_id = product['metadata']['id']
       updateProduct(id=product_database_id, stripe_id=product['id'])
@@ -103,17 +117,12 @@ class StripeWebhook(Resource):
       expiration_date = date.today() + relativedelta(months=+product["VALIDITY_IN_MONTHS"])
 
       status = 'active' if session['payment_status'] == 'paid' else 'awaiting_payment'
-      print(status)
       if vip_user is None:
-        print('Inserting vip user')
         insertVipUser(user_id=user['ID'], product_id=product['ID'], expiration=expiration_date, status=status)
       else:
-        print('Updating vip user')
         updateVipUser(id=vip_user['ID'], expiration=expiration_date, status=status)
     elif event_type == 'invoice.paid':
-      print('Invoice paid')
       invoice = event['data']['object']
-      print(invoice['customer'])
       user = selectUser(stripe_id=invoice['customer'])
       vip_user = selectVipUser(user_id=user['ID'])
       subscription = stripe.Subscription.retrieve(invoice['subscription'])

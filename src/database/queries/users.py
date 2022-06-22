@@ -45,7 +45,6 @@ def updateUser(id, telegram_id = None, stripe_id = None, name = None, email = No
   else:
     sql += f" WHERE ID = {id}"
 
-  print(sql)
   cursor.execute(sql)
   connection.commit()
   connection.close()

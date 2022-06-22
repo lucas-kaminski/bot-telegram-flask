@@ -16,7 +16,6 @@ def selectProduct(id = None, stripe_id = None):
 
   if stripe_id is not None:
     sql = f'SELECT * FROM products WHERE STRIPE_ID = "{stripe_id}"'
-    print(sql)
     cursor.execute(sql)
   else:
     cursor.execute(f'SELECT * FROM products WHERE ID = {id}')

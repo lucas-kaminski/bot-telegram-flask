@@ -22,3 +22,8 @@ def deleteMessage(chat_id, message_id):
   url = 'https://api.telegram.org/bot' + token + '/deleteMessage'
   data = {'chat_id': chat_id, 'message_id': message_id}
   requests.post(url, data=data)
+
+def setWebhook(url):
+  url = 'https://api.telegram.org/bot' + token + '/setWebhook'
+  data = {'url': url, 'drop_pending_updates': True}
+  requests.post(url, data=data)
