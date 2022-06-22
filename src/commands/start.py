@@ -7,4 +7,7 @@ class Start():
   def run(self, **kwargs):
     user = kwargs['user']
 
-    sendMessage(user['TELEGRAM_ID'], 'Comando a ser feito')
+    text = 'Você já está cadastrado em nosso sistema.\n'
+    text += 'Para mais informações, clique ou digite /help.'
+
+    sendMessage(user['TELEGRAM_ID'], text)

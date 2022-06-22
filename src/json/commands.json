@@ -45,8 +45,8 @@
       "description": "Inicializa o bot e realiza o cadastro/login."
     },
     {
-      "command": "settings",
-      "description": "Configurações do usuário."
+      "command": "cadastro",
+      "description": "Cadastro do usuário."
     },
     {
       "command": "help",

@@ -34,7 +34,7 @@ def identificateMessageFromTelegram():
 
       if user is not None:
         # Define o estado da transação baseado no status do usuário
-        # - awaiting_email, updating_email, awaiting_phone, updating_phone, completed
+        # - awaiting_email, updating_email, awaiting_phone, updating_phone, updating_name, completed
         print('Usuário já cadastrado: ', user['ID'])
         if user['STATUS'] == 'awaiting_email' or user['STATUS'] == 'updating_email':
           print('Usuário já cadastrado, aguardando email')
@@ -42,6 +42,9 @@ def identificateMessageFromTelegram():
         elif user['STATUS'] == 'awaiting_phone' or user['STATUS'] == 'updating_phone':
           print('Usuário já cadastrado, aguardando telefone')
           transaction_state = 'validate_phone'
+        elif user['STATUS'] == 'updating_name':
+          print('Usuário já cadastrado, atualizando nome')
+          transaction_state = 'update_name'
         elif user['STATUS'] == 'completed':
           transaction_state = 'validated'
       else:
@@ -60,8 +63,9 @@ def identificateMessageFromTelegram():
           status = 'awaiting_phone' if user['STATUS'] == 'awaiting_email' else 'completed'
           transaction_state = 'validated' if status == 'completed' else 'send_phone_message'
           user = updateUser(id=user['ID'], email=message_sent, status=status)
-          if (status == 'completed'):
-            message_sent = '/pagamento'
+          sendMessage(chat_id, 'Email cadastrado com sucesso!')
+          if transaction_state == 'validated':
+            return Response(status=200)
           print('Usuário atualizado: ', user)
           print('Estado atualizado: ', transaction_state)
         else:
@@ -72,7 +76,7 @@ def identificateMessageFromTelegram():
       if user['EMAIL'] is None or transaction_state == 'send_email_message':
         print('Enviando mensagem de email por email: ', user['EMAIL'], 'e o estado é: ', transaction_state)
         text = 'Para continuar, informe seu e-mail:'
-        buttons = [[{ "text": '📩 Cadastrar email', "callback_data": '/settings/updateEmail:first_time' }]]
+        buttons = [[{ "text": '📩 Cadastrar email', "callback_data": '/cadastro/updateEmail:first_time' }]]
         sendMessage(chat_id, text, buttons)
         return Response(status=200)
 
@@ -82,10 +86,10 @@ def identificateMessageFromTelegram():
           print('Telefone válido')
           transaction_state = 'validated' if user['STATUS'] == 'updating_phone' else 'validation_completed'
           user = updateUser(id=user['ID'], phone=message_sent, status='completed')
-          if (transaction_state == 'validated'):
-            message_sent = '/pagamento'
-          print('Usuário atualizado: ', user)
-          print('Estado atualizado: ', transaction_state)
+          sendMessage(chat_id, 'Telefone cadastrado com sucesso!')
+          if transaction_state == 'validated':
+            return Response(status=200)
+
         else:
           print('Telefone inválido')
           text = 'Por favor, informe um telefone válido.'
@@ -96,7 +100,7 @@ def identificateMessageFromTelegram():
       if user['PHONE'] is None or transaction_state == 'send_phone_message':
         print('Enviando mensagem de telefone por telefone: ', user['PHONE'], 'e o estado é: ', transaction_state)
         text = 'Para continuar, informe seu telefone:'
-        buttons = [[{ "text": '📞 Cadastrar telefone', "callback_data": '/settings/updatePhone:first_time' }]]
+        buttons = [[{ "text": '📞 Cadastrar telefone', "callback_data": '/cadastro/updatePhone:first_time' }]]
         sendMessage(chat_id, text, buttons)
         return Response(status=200)
 
@@ -108,6 +112,13 @@ def identificateMessageFromTelegram():
         sendMessage(chat_id, text)
         message_sent = '/tutoriais'
         transaction_state = 'validated'
+
+      if (transaction_state == 'update_name'):
+        print('Atualizando nome')
+        updateUser(id=user['ID'], name=message_sent, status='completed')
+        sendMessage(chat_id, 'Nome cadastrado com sucesso!')
+        transaction_state = 'validated'
+        return Response(status=200)
 
       if (transaction_state == 'validated'):
         print('Usuário validado')

@@ -28,12 +28,10 @@
 - [x] /fear
 - [x] /help
 - [ ] /links
-  - [ ] Validação de usuário vip já existe, verificar próximos passos
-- [ ] /settings
-  - [ ] mudar para configurações do usuário
-- [ ] /start
-- [ ] /suporte
-- [ ] /tutoriais
+- [x] /cadastro
+- [x] /start
+- [x] /suporte
+- [x] /tutoriais
 
 ## Links
 

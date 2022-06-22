@@ -22,7 +22,7 @@ class Pagamento():
     [
       {
         'text': "📩 Atualizar e-mail",
-        'callback_data': "/settings/updateEmail"
+        'callback_data': "/cadastro/updateEmail"
       }
     ]
   ]
