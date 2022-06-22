@@ -1,4 +1,7 @@
 from connection import Connection
+from datetime import date
+
+now = date.today()
 
 def dropAllTables():
     connection = Connection()
@@ -29,6 +32,12 @@ def dropAllTables():
       print("Table vip_users dropped")
     except:
       print("Error: unable to drop table vip_users")
+
+    try:
+      cursor.execute("DROP TABLE IF EXISTS analises")
+      print("Table analises dropped")
+    except:
+      print("Error: unable to drop table analises")
 
     cursor.execute("SET FOREIGN_KEY_CHECKS = 1")
 
@@ -100,12 +109,42 @@ def createUsersTable():
     except:
       print("Error: unable to create table channels")
 
+    try:
+      # TODO: REF AUTHOR TO ADMIN USER TABLE
+      connection.cursor.execute("""
+        CREATE TABLE IF NOT EXISTS analises (
+          ID INT NOT NULL AUTO_INCREMENT,
+          TITLE VARCHAR(255),
+          BODY TEXT NOT NULL,
+          LINK VARCHAR(255),
+          AUTHOR_ID INT,
+          UPDATED_AT DATETIME NOT NULL,
+          EDITED_AT DATETIME NOT NULL,
+          PRIMARY KEY (ID)
+        )
+        """)
+      print("Table analises created")
+    except:
+      print("Error: unable to create table analises")
+
     connection.commit()
     connection.close()
 
 
 def insertData():
   connection = Connection()
+  #TODO: Fazer um insert de usuário baseando o chat id no .env
+  telegram_id = 5470742074
+  name = "Teste"
+  email = "teste@teste.com.br"
+  phone = '419999999999'
+  status = "completed"
+  connection.cursor.execute("""
+    INSERT INTO users (TELEGRAM_ID, NAME, EMAIL, PHONE, STATUS)
+    VALUES (%s, %s, %s, %s, %s)
+  """, (telegram_id, name, email, phone, status))
+  print("User inserted")
+
   connection.cursor.execute("""
     INSERT INTO products (NAME, DESCRIPTION, PRICE, VALIDITY_IN_MONTHS) VALUES
     ('VIP MENSAL [VIP 249]', '', 249.90, 1),
@@ -115,6 +154,31 @@ def insertData():
     ('VIP [VIP 1134]', '', 1134.40, 6)
   """)
   print("Products inserted")
+
+  title = "Análise Bitcoin"
+  body = """
+  Boa tarde, pessoal!
+
+Realmente fomos testar os U$ 29.000 dólares hein? E além de testar o U$ 29.000 dólares, também tocamos levemente na nossa LTB (Linha de Tendência de Baixa) rompida no dia 29 de Maio e voltamos a subir. O mercado está bem volátil esses últimos dias por isso devemos sempre nos manter atentos ao gráfico.
+
+No gráfico de 4 horas, o preço volta a ficar abaixo das medias, porém agora as medias começam a ficar mais juntas e não tão separadas, somente as medias de 200 períodos (linha verde e linha laranja) que estão mais acima e apresentam uma forte resistência ao preço. No gráfico diário, no dia de ontem quase entregamos toda a subida do dia 30 de Maio, mas os compradores começaram a reagir antes que isso acontecesse. Porém agora estamos abaixo da EMA de 20 períodos (linha vermelha) novamente, apresentando mais uma vez a resistência ao preço.
+
+Não tem muito o que fazer nesse momento, apesar da turbulência, ainda estamos em uma área de lateralização, se formos perceber estamos andando de lado nessa zona desde o começo de Maio praticamente. E ainda temos muito ruído do mercado tradicional que também não está desempenhando bem nos últimos dias e o FED cada vez mais pensando em aumentar a taxa de juros. Momento complicado, mas que passará, só termos calma e paciência. Novamente, cautela ao operar nesse período! Podemos ainda ir testar os U$ 32.000 dólares (forte resistência), por isso cuidado!
+
+Sempre gerenciem o risco de vocês de modo adequado, nunca coloquem todo o capital em uma só operação e nem em uma criptomoeda só.
+
+Nosso suporte mais importante está na região dos U$ 29.000-25.000 dólares. Nossa resistência agora está em U$ 32.000 dólares e U$ 35.000 dólares.
+
+Lembrando que o mercado das criptomoedas é um mercado extremamente volátil, essa é só uma opinião técnica.
+"""
+  link = "https://www.tradingview.com/x/qxjORn7l/"
+  updated_at = now
+  edited_at = now
+  connection.cursor.execute("""
+    INSERT INTO analises (TITLE, BODY, LINK, UPDATED_AT, EDITED_AT) VALUES (%s, %s, %s, %s, %s)
+    """, (title, body, link, updated_at, edited_at))
+  print("Analises inserted")
+
 
   connection.commit()
   connection.close()

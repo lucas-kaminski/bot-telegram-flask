@@ -1,6 +1,9 @@
 ## Pontos a se desenvolver
 - [ ] Manipulação dos dados via .env
 - [ ] Linting and formatting
+- [ ] Cadastro de administrador
+  - [ ] Implementar na tabela de analise
+- [ ]
 
 ## Necessário um double check
 - [ ] Fluxo do sistema stripe, está sendo feito o fluxo completo mas necessário validar cada ponto para evitar b.o (produtos (preço, recorrência, ...), assinaturas (ativa, desativa, vencida, ...), customers, etc...)
@@ -14,10 +17,12 @@
 - [ ] Json de keyboards para padronização de botões de callback
 
 ## Comandos a serem implementados
-- [ x ] /news
-- [ ] /trades
-- [ ] /analise
-  - [ ] Banco de dados
+- [x] /news
+- [] /trades
+- [x] /analise
+  - [x] Banco de dados
+  - [ ] API Binance
+  - [ ] Pegar autor
 - [ ] /carteiradotasso
   - [ ] Ver como vai funcionar o esquema de indicação
 - [ ] /fear
@@ -33,3 +38,4 @@
 ## Links
 
 https://core.telegram.org/bots/api
+https://core.telegram.org/bots/api#html-style

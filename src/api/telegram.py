@@ -21,7 +21,11 @@ def sendMessage(chat_id, text, buttons = None, parse_mode = 'Markdown'):
   data = {'chat_id': chat_id, 'text': text, 'parse_mode': parse_mode}
   if buttons is not None:
     data['reply_markup'] = json.dumps({'inline_keyboard': buttons})
-  requests.post(url, data=data)
+  try:
+    requests.post(url, data=data)
+  except Exception as e:
+    print(e)
+    print('Error: unable to send message')
 
 def updateMessage(chat_id, message_id, text, buttons = None, parse_mode = 'Markdown'):
   url = 'https://api.telegram.org/bot' + token + '/editMessageText'
@@ -29,7 +33,11 @@ def updateMessage(chat_id, message_id, text, buttons = None, parse_mode = 'Markd
   if buttons is not None:
     data['reply_markup'] = json.dumps({'inline_keyboard': buttons},)
   print(data)
-  requests.post(url, data=data)
+  try:
+    requests.post(url, data=data)
+  except Exception as e:
+    print(e)
+    print('Error: unable to update message')
 
 def deleteMessage(chat_id, message_id):
   url = 'https://api.telegram.org/bot' + token + '/deleteMessage'
