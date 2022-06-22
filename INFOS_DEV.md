@@ -18,7 +18,7 @@
 
 ## Comandos a serem implementados
 - [x] /news
-- [] /trades
+- [ ] /trades
 - [x] /analise
   - [x] Banco de dados
   - [ ] API Binance
@@ -27,7 +27,8 @@
   - [ ] Ver como vai funcionar o esquema de indicação
 - [x] /fear
 - [x] /help
-- [ ] /links
+- [x] /links
+  - [ ] Ver quais links disponibilizarão para o usuário vip
 - [x] /cadastro
 - [x] /start
 - [x] /suporte
