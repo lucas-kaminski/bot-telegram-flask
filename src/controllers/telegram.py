@@ -2,7 +2,8 @@ from flask import Flask, request
 from flask_restx import Api, Resource
 
 from server.instance import server
-from api.telegram import sendMessage, setWebhook
+from api.telegram import sendMessage, setWebhook, setCommands
+import json
 
 from middleware.messageValidation import messageValidation
 
@@ -15,6 +16,12 @@ class SetWebhook(Resource):
   def post(self):
     url = request.get_json()['url']
     setWebhook(url)
+    return True
+
+@api.route('/telegram/set/commands')
+class SetCommands(Resource):
+  def put(self):
+    setCommands()
     return True
 
 @api.route('/telegram')

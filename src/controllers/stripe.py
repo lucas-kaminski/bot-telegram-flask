@@ -2,7 +2,6 @@ from flask import Flask, request, Response, jsonify
 from flask_restx import Api, Resource
 import json
 import stripe
-import logging
 
 from dateutil.relativedelta import relativedelta
 from datetime import date
@@ -19,8 +18,6 @@ app, api = server.app, server.api
 stripe.api_key = "sk_test_51LAXyuKaSskwmwx9kzacuFWAsMZoxam4uZi7dqDpoBXpi1CRzDoZ3QDM6DdqhOfVKBAStJVrY8gpqPiI7F7b12UA00nPdF8aqB"
 
 endpoint_secret = 'whsec_hCurOXHwhQqmyLXN7QLfFriUOumjPGBK'
-
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s', filename='./src/logs/stripe.log')
 
 @api.route('/stripe/sync/products')
 class SyncStripeProducts(Resource):
@@ -134,6 +131,6 @@ class StripeWebhook(Resource):
       user = selectUser(stripe_id=subscription['customer'])
       updateVipUser(id=user['ID'], status='canceled')
     else:
-      logging.info('Unknown event type: ' + event_type)
+      print('Unknown event type: ' + event_type)
 
     return jsonify(received=True)

@@ -1,0 +1,57 @@
+{
+  "commands": [
+    {
+      "command": "trades",
+      "description": "Lista os trades em aberto."
+    },
+    {
+      "command": "carteiradotasso",
+      "description": "Carteira do Tasso."
+    },
+    {
+      "command": "pagamento",
+      "description": "Efetua pagamento do grupo VIP de forma rápida e segura."
+    },
+    {
+      "command": "analise",
+      "description": "Exibe a análise para o momento atual do Bitcoin."
+    },
+    {
+      "command": "fear",
+      "description": "Exibe o indicador Fear & Greed atual do mercado de criptos."
+    },
+    {
+      "command": "news",
+      "description": "Ultimas notícias do mercado de criptos."
+    },
+    {
+      "command": "links",
+      "description": "Links para acessar o canal e a área de membros VIP."
+    },
+    {
+      "command": "suporte",
+      "description": "Falar com o suporte."
+    },
+    {
+      "command": "tutoriais",
+      "description": "Tutoriais que o ajudam com o bot e seus funcionalidades."
+    },
+    {
+      "command": "listarmoedas",
+      "description": "Listagem das moedas."
+    },
+    {
+      "command": "start",
+      "description": "Inicializa o bot e realiza o cadastro/login."
+    },
+    {
+      "command": "settings",
+      "description": "Configurações do usuário."
+    },
+    {
+      "command": "help",
+      "description": "Ajuda com os comandos."
+    }
+  ],
+  "language_code": "pt"
+}
