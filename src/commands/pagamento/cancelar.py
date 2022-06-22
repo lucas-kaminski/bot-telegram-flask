@@ -1,7 +1,5 @@
 from api.telegram import deleteMessage
 
-import stripe
-
 class Cancelar():
   def __init__ (self):
     pass

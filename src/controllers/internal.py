@@ -12,7 +12,7 @@ from commands.listarmoedas import Listarmoedas
 
 app, api = server.app, server.api
 
-@api.route('/external/newcoin')
+@api.route('/internal/newcoin')
 class NewCoin (Resource):
   def post(self):
     symbol = request.get_json()['symbol']

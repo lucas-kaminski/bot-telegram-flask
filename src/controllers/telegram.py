@@ -5,11 +5,11 @@ from server.instance import server
 from api.telegram import sendMessage, setWebhook, setCommands
 import json
 
-from middleware.messageValidation import messageValidation
+from middleware.identificateMessageFromTelegram import identificateMessageFromTelegram
 
 app, api = server.app, server.api
 
-app.before_request(messageValidation)
+app.before_request(identificateMessageFromTelegram)
 
 @api.route('/telegram/set/webhook')
 class SetWebhook(Resource):
@@ -27,7 +27,6 @@ class SetCommands(Resource):
 @api.route('/telegram/webhook')
 class Telegram(Resource):
   def post(self):
-    return Response(status=200)
     # Definido no message validation
     args = request.args
     message_type = args['message_type']

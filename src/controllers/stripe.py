@@ -8,16 +8,13 @@ from datetime import date
 
 from server.instance import server
 
+from middleware.validateWebhookFromStripe import validateWebhookFromStripe
+
 from database.queries.products import selectAllProducts, updateProduct, selectProduct
 from database.queries.users import updateUser, selectUser
 from database.queries.vip_users import selectVipUser, insertVipUser, updateVipUser
 
 app, api = server.app, server.api
-
-# TODO: Env
-stripe.api_key = "sk_test_51LAXyuKaSskwmwx9kzacuFWAsMZoxam4uZi7dqDpoBXpi1CRzDoZ3QDM6DdqhOfVKBAStJVrY8gpqPiI7F7b12UA00nPdF8aqB"
-
-endpoint_secret = 'whsec_hCurOXHwhQqmyLXN7QLfFriUOumjPGBK'
 
 @api.route('/stripe/sync/products')
 class SyncStripeProducts(Resource):
@@ -72,24 +69,12 @@ class SetWebhook(Resource):
 
     return endpoint['secret']
 
+app.before_request(validateWebhookFromStripe)
 
 @api.route('/stripe/webhook')
 class StripeWebhook(Resource):
   def post(self):
-    payload = request.get_data()
-    sig_header = request.headers.get('Stripe-Signature')
-
-    try:
-      event = stripe.Webhook.construct_event(
-        payload=payload,
-        sig_header=sig_header,
-        secret=endpoint_secret,
-      )
-    except ValueError as e:
-      return Response(status=400)
-    except stripe.error.SignatureVerificationError as e:
-      return Response(status=400)
-
+    event = request.args['event']
     event_type = event['type']
 
     if event_type == 'customer.created':

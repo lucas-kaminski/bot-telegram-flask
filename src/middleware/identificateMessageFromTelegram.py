@@ -7,7 +7,7 @@ from api.telegram import sendMessage
 from utils.validation import isValidEmail, isValidPhone
 
 
-def messageValidation():
+def identificateMessageFromTelegram():
   if request.endpoint == 'telegram':
     body = request.get_json()
     if ('message' in body):
@@ -110,6 +110,7 @@ def messageValidation():
         transaction_state = 'validated'
 
       if (transaction_state == 'validated'):
+        print('Usuário validado')
         request.args = {'message_type': 'message', 'message_sent': message_sent, 'user': user}
       else:
         print('Ocorreu um erro ao validar o usuário')
