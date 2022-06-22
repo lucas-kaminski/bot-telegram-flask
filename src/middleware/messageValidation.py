@@ -1,6 +1,8 @@
 from flask import request, Response
 
 from database.queries.users import selectUser, insertUser, updateUser
+from database.queries.channels import selectChannel, insertChannel, updateChannel
+
 from api.telegram import sendMessage
 from utils.validation import isValidEmail, isValidPhone
 
@@ -130,8 +132,31 @@ def messageValidation():
         return Response(status=200)
 
       request.args = {'message_type': 'callback',  'message_id': message_id, 'callback_path': callback_path, 'callback_info': callback_info, 'user': user}
+    elif ('my_chat_member' in body):
+      if (body['my_chat_member']['chat']['type'] == 'channel'):
+        chat_id = body['my_chat_member']['chat']['id']
+        chat_name = body['my_chat_member']['chat']['title']
+
+        channel = selectChannel(telegram_id=chat_id)
+
+        print(channel, 'channel')
+
+        if body['my_chat_member']['new_chat_member']['status'] == 'kicked' or body['my_chat_member']['new_chat_member']['status'] == 'left':
+          print('Usuário kickado do canal')
+          updateChannel(id=channel['ID'], telegram_id=None)
+          return Response(status=200)
+
+        if channel is None:
+          print('Cadastrando canal')
+          channel = insertChannel(telegram_id=chat_id, name=chat_name)
+
+        request.args = {'message_type': 'channel_post', 'channel': channel}
+      else:
+        print('Não é um canal')
+        return Response(status=200)
     elif ('channel_post' in body):
       print('channel_post')
-      request.args = {'message_type': 'channel_post'}
+      return Response(status=200)
     else:
       print('outro')
+      return Response(status=200)

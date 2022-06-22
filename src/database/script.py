@@ -32,7 +32,6 @@ def dropAllTables():
 
     cursor.execute("SET FOREIGN_KEY_CHECKS = 1")
 
-    print("Tables dropped")
     connection.commit()
     connection.close()
 
@@ -80,17 +79,32 @@ def createUsersTable():
           EXPIRATION DATE NOT NULL,
           STATUS VARCHAR(255) NOT NULL,
           PRIMARY KEY (ID),
-          FOREIGN KEY (USER_ID) REFERENCES users(ID),
-          FOREIGN KEY (PRODUCT_ID) REFERENCES products(ID)
+          FOREIGN KEY (USER_ID) REFERENCES users(ID) ON DELETE CASCADE,
+          FOREIGN KEY (PRODUCT_ID) REFERENCES products(ID) ON DELETE CASCADE
         )
         """)
+      print("Table vip_users created")
+    except:
+      print("Error: unable to create table vip_users")
+
+    try:
+      connection.cursor.execute("""
+        CREATE TABLE IF NOT EXISTS channels (
+          ID INT NOT NULL AUTO_INCREMENT,
+          TELEGRAM_ID BIGINT UNIQUE,
+          NAME VARCHAR(255) NOT NULL,
+          PRIMARY KEY (ID)
+        )
+      """)
       print("Table channels created")
     except:
       print("Error: unable to create table channels")
 
+    connection.commit()
+    connection.close()
 
 
-def insertProducts():
+def insertData():
   connection = Connection()
   connection.cursor.execute("""
     INSERT INTO products (NAME, DESCRIPTION, PRICE, VALIDITY_IN_MONTHS) VALUES
@@ -100,13 +114,16 @@ def insertProducts():
     ('VIP [VIP 689]', '', 689.70, 3),
     ('VIP [VIP 1134]', '', 1134.40, 6)
   """)
+  print("Products inserted")
+
   connection.commit()
   connection.close()
-  print("Products inserted")
 
 # run the script
 if __name__ == "__main__":
   dropAllTables()
   createUsersTable()
-  insertProducts()
+  insertData()
+
+  print("Finalizado, agora execute as sincronizações")
 

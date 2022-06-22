@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, Response
 from flask_restx import Api, Resource
 
 from server.instance import server
@@ -15,7 +15,7 @@ app.before_request(messageValidation)
 class SetWebhook(Resource):
   def post(self):
     url = request.get_json()['url']
-    setWebhook(url)
+    setWebhook(url + '/telegram/webhook')
     return True
 
 @api.route('/telegram/set/commands')
@@ -24,13 +24,13 @@ class SetCommands(Resource):
     setCommands()
     return True
 
-@api.route('/telegram')
+@api.route('/telegram/webhook')
 class Telegram(Resource):
   def post(self):
+    return Response(status=200)
     # Definido no message validation
     args = request.args
     message_type = args['message_type']
-
     if (message_type == 'message'):
 
       # TODO: Validação via JSON do setCommands
@@ -58,7 +58,8 @@ class Telegram(Resource):
         callback.run(self, user=args['user'], message_id=args['message_id'], callback_info=args['callback_info'])
 
     elif (message_type == 'channel_post'):
-      print('channel_post')
+      channel = args['channel']
+      print(channel)
 
     else:
       print('outro')

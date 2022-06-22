@@ -41,7 +41,7 @@ def updateUser(id, telegram_id = None, stripe_id = None, name = None, email = No
   sql = sql[:-2]
 
   if sql == "UPDATE users SE":
-    sql = f"UPDATE users SET STATUS = '{None}' WHERE ID = {id}"
+    sql = f"UPDATE users SET STRIPE_ID = {None} WHERE ID = {id}"
   else:
     sql += f" WHERE ID = {id}"
 
@@ -49,3 +49,11 @@ def updateUser(id, telegram_id = None, stripe_id = None, name = None, email = No
   connection.commit()
   connection.close()
   return selectUser(id=id)
+
+def selectAllUsers():
+  connection = Connection()
+  cursor = connection.cursor
+  cursor.execute("SELECT * FROM users")
+  users = cursor.fetchall()
+  connection.close()
+  return users

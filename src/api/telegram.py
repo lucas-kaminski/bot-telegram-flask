@@ -4,9 +4,9 @@ import json
 url = 'https://api.telegram.org/bot'
 token = '5498402431:AAE2E-MBAZuUktFZq71pIjtmB8sKxY4u6r8'
 
-def setWebhook(url):
+def setWebhook(url_webhook):
   url = 'https://api.telegram.org/bot' + token + '/setWebhook'
-  data = {'url': url, 'drop_pending_updates': True}
+  data = {'url': url_webhook, 'drop_pending_updates': True}
   requests.post(url, data=data)
 
 def setCommands():
@@ -18,7 +18,7 @@ def setCommands():
 
 def sendMessage(chat_id, text, buttons = None):
   url = 'https://api.telegram.org/bot' + token + '/sendMessage'
-  data = {'chat_id': chat_id, 'text': text}
+  data = {'chat_id': chat_id, 'text': text, 'parse_mode': 'Markdown'}
   if buttons is not None:
     data['reply_markup'] = json.dumps({'inline_keyboard': buttons})
   requests.post(url, data=data)
