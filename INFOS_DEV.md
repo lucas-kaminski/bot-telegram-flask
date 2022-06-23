@@ -1,9 +1,10 @@
 ## Pontos a se desenvolver
 - [ ] Manipulação dos dados via .env
+  - [ ] Usar local e não global
 - [ ] Linting and formatting
-- [ ] Cadastro de administrador
+- [ ] Tabela de adm_users
   - [ ] Implementar na tabela de analise
-- [ ]
+- [ ] Cadastro de trades
 
 ## Necessário um double check
 - [ ] Fluxo do sistema stripe, está sendo feito o fluxo completo mas necessário validar cada ponto para evitar b.o (produtos (preço, recorrência, ...), assinaturas (ativa, desativa, vencida, ...), customers, etc...)
@@ -15,6 +16,7 @@
 - [ ] Webscrapping de noticias para o comando /news
 - [ ] O comando /listarmoedas está salvando em JSON, ver se vai para banco
 - [ ] Json de keyboards para padronização de botões de callback
+- [ ] Migrar para FASTApi
 
 ## Comandos a serem implementados
 - [x] /news

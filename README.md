@@ -33,6 +33,7 @@ Por fim, a pasta `utils` contém todas as funções que auxiliam no desenvolvime
 ## Possíveis fluxos do servidor
 
 ### **Telegram**
+
 O [bot do telegram](https://t.me/WTLLBot) é o responsável pelo principal fluxo do sistema. <br/>
 Ao receber uma mensagem por chat direto ou em um canal, o telegram irá enviar um webhook com as informações para a rota `/telegram` do sistema. <br/>
 Essa rota possui um middleware que irá primeiramente o tipo de mensagem recebida, atualmente se aceita três tipos, sendo eles: </br>
@@ -41,7 +42,13 @@ Essa rota possui um middleware que irá primeiramente o tipo de mensagem recebid
 - `channel_post`: Mensagem de um canal, irá verificar se o canal está salvo no banco de dados. <br/>
 
 ### **Stripe**
-a
+
+Quando o usuário vai no bot /pagamento, no cartão ou boleto, ao confirmar
+- Vai criar o usuário na Stripe e atualizar o id dele no banco pelo webhook. <br/>
+- Devido a recorrência criada no produto, é feito uma subscription relacioando o usuário com o produto recorrente. <br/>
+- Vai criar uma session para o checkout do usuário. <br/>
+- Tudo relacionado após o pagamento, é tratado na controller de webhook da Stripe. <br/>
+Existem algumas sincronizações que são feitas pelo webhook, como ao criar um produto é sincronizado o id do produto no banco de dados. <br/>
 
 ## Padrões de desenvolvimento
 
@@ -59,3 +66,4 @@ O deploy foi realizado na heroku, no [link](https://secure-fortress-69045.heroku
 | ------ | ---------- |
 | `python .\src\main.py` | Inicialização do server em localhost. |
 | `python .\src\database\script.py` | Script de drop e recreate do banco de dados. |
+| `heroku config:set STRIPE_WEBHOOK_SECRET_KEY=whsec_ydu5EtAaMJxjDhSZ7Soxce80aByjevrB` | Define as variáveis de ambiente no heroku. |

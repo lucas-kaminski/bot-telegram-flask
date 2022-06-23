@@ -8,6 +8,7 @@ from logging.handlers import RotatingFileHandler
 from controllers.telegram import Telegram, setCommands, setWebhook
 from controllers.stripe import SyncStripeProducts, StripeWebhook, SetWebhook
 from controllers.internal import NewCoin
+from controllers.evermart import EvermartWebhook
 
 import json
 
@@ -17,7 +18,6 @@ app = server.app
 # https://gist.github.com/alexaleluia12/e40f1dfa4ce598c2e958611f67d28966
 @app.after_request
 def after_request(response):
-  print('logging')
   timestamp = strftime('[%Y-%b-%d %H:%M:%S]')
   print(f'{timestamp} {request.remote_addr} {request.method} {request.scheme} {request.full_path} {response.status}')
   logger.error(f'{timestamp} {request.remote_addr} {request.method} {request.scheme} {request.full_path} {response.status}')

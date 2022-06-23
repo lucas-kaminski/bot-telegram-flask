@@ -9,7 +9,6 @@ from middleware.identificateMessageFromTelegram import identificateMessageFromTe
 
 app, api = server.app, server.api
 
-app.before_request(identificateMessageFromTelegram)
 
 @api.route('/telegram/set/webhook')
 class SetWebhook(Resource):
@@ -24,6 +23,7 @@ class SetCommands(Resource):
     setCommands()
     return True
 
+app.before_request(identificateMessageFromTelegram)
 @api.route('/telegram/webhook')
 class Telegram(Resource):
   def post(self):
