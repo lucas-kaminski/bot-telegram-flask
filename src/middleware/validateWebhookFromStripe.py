@@ -5,7 +5,7 @@ import stripe
 # TODO: Env
 stripe.api_key = "sk_test_51LAXyuKaSskwmwx9kzacuFWAsMZoxam4uZi7dqDpoBXpi1CRzDoZ3QDM6DdqhOfVKBAStJVrY8gpqPiI7F7b12UA00nPdF8aqB"
 
-endpoint_secret = 'whsec_hCurOXHwhQqmyLXN7QLfFriUOumjPGBK'
+endpoint_secret = 'whsec_5vJo175FLWsnFqczl6ZHxYBigLjyBEBc'
 
 def validateWebhookFromStripe():
   if request.endpoint == 'stripe_webhook':

@@ -9,7 +9,8 @@ class Tutoriais():
     user = kwargs['user']
 
     # Mensagem 1
-    text = 'Aqui no Bot é onde você acessa os trades do Tasso em tempo real \n\n'
+    text = 'Fala meu rei, seja muito bem vindo ao Bot da Financial Move \n\n'
+    text += 'Aqui no Bot é onde você acessa os trades do Tasso em tempo real \n\n'
     text += 'Segue o passo a passo pra você entender como funciona para acessar o melhor do VIP (Vídeo no botão abaixo)'
 
     buttons = [[{ 'text': '📺 Instruções para acessar', 'url': 'https://financialmove.com.br/como-acessar' }]]
@@ -22,6 +23,9 @@ class Tutoriais():
     text += 'Clique no botão abaixo para ver os tutoriais e entender como funcionam as informações do Bot'
 
     buttons = [[{ 'text': '📺 Ver tutorial do bot', 'url': 'https://financialmove.com.br/tutoriais-bot' }]]
+
+    sendMessage(user['TELEGRAM_ID'], text, buttons)
+    time.sleep(1)
 
     # Mensagem 3
     text = '➡ Passo 2: \n'
@@ -59,7 +63,7 @@ class Tutoriais():
     text += 'Um abraço do Tasso e de toda a equipe da Financial! \n\n'
     text += 'Somos a #revolução Cripto 📈'
 
-    buttons = [[{ text: '📳 Falar com o suporte', url: 'https://financialmove.com.br/andreimeajuda' }]]
+    buttons = [[{ 'text': '📳 Falar com o suporte', 'url': 'https://financialmove.com.br/andreimeajuda' }]]
     sendMessage(user['TELEGRAM_ID'], text, buttons)
     time.sleep(1)
 
