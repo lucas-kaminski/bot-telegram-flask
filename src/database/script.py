@@ -16,16 +16,10 @@ def dropAllTables():
       print("Error: unable to drop table users")
 
     try:
-      cursor.execute("DROP TABLE IF EXISTS channels")
-      print("Table channels dropped")
+      cursor.execute("DROP TABLE IF EXISTS adm_users")
+      print("Table adm_users dropped")
     except:
-      print("Error: unable to drop table channels")
-
-    try:
-      cursor.execute("DROP TABLE IF EXISTS products")
-      print("Table products dropped")
-    except:
-      print("Error: unable to drop table products")
+      print("Error: unable to drop table adm_users")
 
     try:
       cursor.execute("DROP TABLE IF EXISTS vip_users")
@@ -34,10 +28,29 @@ def dropAllTables():
       print("Error: unable to drop table vip_users")
 
     try:
+      cursor.execute("DROP TABLE IF EXISTS products")
+      print("Table products dropped")
+    except:
+      print("Error: unable to drop table products")
+
+    try:
+      cursor.execute("DROP TABLE IF EXISTS channels")
+      print("Table channels dropped")
+    except:
+      print("Error: unable to drop table channels")
+
+    try:
       cursor.execute("DROP TABLE IF EXISTS analises")
       print("Table analises dropped")
     except:
       print("Error: unable to drop table analises")
+
+    try:
+      cursor.execute("DROP TABLE IF EXISTS trades")
+      print("Table trades dropped")
+    except:
+      print("Error: unable to drop table trades")
+
 
     cursor.execute("SET FOREIGN_KEY_CHECKS = 1")
 
@@ -65,6 +78,37 @@ def createUsersTable():
 
     try:
       connection.cursor.execute("""
+        CREATE TABLE IF NOT EXISTS adm_users(
+          ID INT NOT NULL AUTO_INCREMENT,
+          USER_ID INT NOT NULL UNIQUE,
+          COUNTERSIGN VARCHAR(255) NOT NULL,
+          POSITION VARCHAR(255) NOT NULL,
+          PRIMARY KEY (ID),
+          FOREIGN KEY (USER_ID) REFERENCES users(ID) ON DELETE CASCADE
+        )
+      """)
+      print("Table adm_users created")
+    except:
+      print("Error: unable to create table adm_users")
+
+    try:
+      connection.cursor.execute("""
+        CREATE TABLE IF NOT EXISTS vip_users (
+          ID INT NOT NULL AUTO_INCREMENT,
+          USER_ID INT NOT NULL,
+          PRODUCT_ID INT NOT NULL,
+          EXPIRATION DATE NOT NULL,
+          STATUS VARCHAR(255) NOT NULL,
+          PRIMARY KEY (ID)
+        )
+        """)
+      print("Table vip_users created")
+    except Exception as e:
+      print(e)
+      print("Error: unable to create table vip_users")
+
+    try:
+      connection.cursor.execute("""
         CREATE TABLE IF NOT EXISTS products (
           ID INT NOT NULL AUTO_INCREMENT,
           STRIPE_ID VARCHAR(255),
@@ -81,23 +125,6 @@ def createUsersTable():
 
     try:
       connection.cursor.execute("""
-        CREATE TABLE IF NOT EXISTS vip_users (
-          ID INT NOT NULL AUTO_INCREMENT,
-          USER_ID INT NOT NULL,
-          PRODUCT_ID INT NOT NULL,
-          EXPIRATION DATE NOT NULL,
-          STATUS VARCHAR(255) NOT NULL,
-          PRIMARY KEY (ID),
-          FOREIGN KEY (USER_ID) REFERENCES users(ID) ON DELETE CASCADE,
-          FOREIGN KEY (PRODUCT_ID) REFERENCES products(ID) ON DELETE CASCADE
-        )
-        """)
-      print("Table vip_users created")
-    except:
-      print("Error: unable to create table vip_users")
-
-    try:
-      connection.cursor.execute("""
         CREATE TABLE IF NOT EXISTS channels (
           ID INT NOT NULL AUTO_INCREMENT,
           TELEGRAM_ID BIGINT UNIQUE,
@@ -110,26 +137,42 @@ def createUsersTable():
       print("Error: unable to create table channels")
 
     try:
-      # TODO: REF AUTHOR TO ADMIN USER TABLE
       connection.cursor.execute("""
         CREATE TABLE IF NOT EXISTS analises (
           ID INT NOT NULL AUTO_INCREMENT,
           TITLE VARCHAR(255),
           BODY TEXT NOT NULL,
           LINK VARCHAR(255),
-          AUTHOR_ID INT,
+          AUTHOR_ID INT NOT NULL,
           UPDATED_AT DATETIME NOT NULL,
           EDITED_AT DATETIME NOT NULL,
-          PRIMARY KEY (ID)
+          PRIMARY KEY (ID),
+          FOREIGN KEY (AUTHOR_ID) REFERENCES adm_users(ID) ON DELETE CASCADE
         )
         """)
       print("Table analises created")
-    except:
+    except Exception as e:
+      print(e)
       print("Error: unable to create table analises")
+
+    try:
+      connection.cursor.execute("""
+        CREATE TABLE IF NOT EXISTS trades (
+          ID INT NOT NULL AUTO_INCREMENT,
+          SYMBOL VARCHAR(255) NOT NULL,
+          CREATED_BY INT NOT NULL,
+          UPDATED_AT DATETIME NOT NULL,
+          EDITED_AT DATETIME NOT NULL,
+          PRIMARY KEY (ID),
+          FOREIGN KEY (CREATED_BY) REFERENCES adm_users(ID) ON DELETE CASCADE
+        )
+        """)
+      print("Table trades created")
+    except:
+      print("Error: unable to create table trades")
 
     connection.commit()
     connection.close()
-
 
 def insertData():
   connection = Connection()
@@ -139,11 +182,31 @@ def insertData():
   email = "teste@teste.com.br"
   phone = '419999999999'
   status = "completed"
+
   connection.cursor.execute("""
     INSERT INTO users (TELEGRAM_ID, NAME, EMAIL, PHONE, STATUS)
     VALUES (%s, %s, %s, %s, %s)
   """, (telegram_id, name, email, phone, status))
   print("User inserted")
+
+  connection.cursor.execute("""
+    SELECT * FROM users WHERE TELEGRAM_ID = %s
+  """, (telegram_id,))
+
+  user_id = connection.cursor.fetchone()['ID']
+  position = 'ADMIN'
+  countersign = 'TESTE'
+  connection.cursor.execute("""
+    INSERT INTO adm_users (USER_ID, COUNTERSIGN, POSITION)
+    VALUES (%s, %s, %s)
+  """, (user_id, countersign, position))
+  print("Admin user inserted")
+
+  connection.cursor.execute("""
+    SELECT * FROM adm_users WHERE USER_ID = %s
+  """, (user_id,))
+
+  adm_user_id = connection.cursor.fetchone()['ID']
 
   connection.cursor.execute("""
     INSERT INTO products (NAME, DESCRIPTION, PRICE, VALIDITY_IN_MONTHS) VALUES
@@ -175,8 +238,8 @@ Lembrando que o mercado das criptomoedas é um mercado extremamente volátil, es
   updated_at = now
   edited_at = now
   connection.cursor.execute("""
-    INSERT INTO analises (TITLE, BODY, LINK, UPDATED_AT, EDITED_AT) VALUES (%s, %s, %s, %s, %s)
-    """, (title, body, link, updated_at, edited_at))
+    INSERT INTO analises (TITLE, BODY, LINK, AUTHOR_ID, UPDATED_AT, EDITED_AT) VALUES (%s, %s, %s, %s, %s, %s)
+    """, (title, body, link, adm_user_id, updated_at, edited_at))
   print("Analises inserted")
 
 

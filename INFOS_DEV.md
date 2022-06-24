@@ -2,9 +2,6 @@
 - [ ] Manipulação dos dados via .env
   - [ ] Usar local e não global
 - [ ] Linting and formatting
-- [ ] Tabela de adm_users
-  - [ ] Implementar na tabela de analise
-- [ ] Cadastro de trades
 
 ## Necessário um double check
 - [ ] Fluxo do sistema stripe, está sendo feito o fluxo completo mas necessário validar cada ponto para evitar b.o (produtos (preço, recorrência, ...), assinaturas (ativa, desativa, vencida, ...), customers, etc...)

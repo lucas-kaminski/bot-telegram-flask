@@ -50,6 +50,10 @@ Quando o usuário vai no bot /pagamento, no cartão ou boleto, ao confirmar
 - Tudo relacionado após o pagamento, é tratado na controller de webhook da Stripe. <br/>
 Existem algumas sincronizações que são feitas pelo webhook, como ao criar um produto é sincronizado o id do produto no banco de dados. <br/>
 
+### **Evermart**
+
+
+
 ## Padrões de desenvolvimento
 
 - Ao enviar um botão de callback, o valor de `callback_data` deve ser o caminho relativo a partir da pasta `commands` até o arquivo de callbackm, por exemplo: <br/>
