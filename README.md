@@ -71,7 +71,8 @@ O deploy foi realizado na heroku, no [link](https://secure-fortress-69045.heroku
 | `python -m venv venv` | Criação do ambiente virtual do python. |
 | `venv/Scripts/Activate` | Ativa o ambiente virtual do python (windows). |
 | `pip install pipenv` | Instala o administrador de packages. |
-| `python -m pipenv install` | Instala as dependências do sistema. |
+| `python -m pipenv install` | Instala as dependências do sistema ou se passar um pacote, instala só ele. |
 | `python .\src\main.py` | Inicialização do server em localhost. |
 | `python .\src\database\script.py` | Script de drop e recreate do banco de dados. |
+| `python -m black src` | Formatação padrão no código. |
 | `heroku config:set STRIPE_WEBHOOK_SECRET_KEY=whsec_` | Define as variáveis de ambiente no heroku. |

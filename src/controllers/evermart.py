@@ -5,12 +5,12 @@ from flask_restx import Api, Resource
 
 app, api = server.app, server.api
 
-@api.route('/evermart/webhook')
+
+@api.route("/evermart/webhook")
 class EvermartWebhook(Resource):
-  def get(self):
-    return {'status': 'ok'}
+    def get(self):
+        return {"status": "ok"}
 
-  def post(self):
+    def post(self):
 
-    print('evermart webhook')
-
+        print("evermart webhook")

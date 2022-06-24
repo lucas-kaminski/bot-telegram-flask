@@ -1,13 +1,14 @@
 from api.telegram import sendMessage
 
-class Start():
-  def __init__ (self):
-    pass
 
-  def run(self, **kwargs):
-    user = kwargs['user']
+class Start:
+    def __init__(self):
+        pass
 
-    text = 'Você já está cadastrado em nosso sistema.\n'
-    text += 'Para mais informações, clique ou digite /help.'
+    def run(self, **kwargs):
+        user = kwargs["user"]
 
-    sendMessage(user['TELEGRAM_ID'], text)
+        text = "Você já está cadastrado em nosso sistema.\n"
+        text += "Para mais informações, clique ou digite /help."
+
+        sendMessage(user["TELEGRAM_ID"], text)
