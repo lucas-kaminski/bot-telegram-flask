@@ -1,11 +1,11 @@
 from flask import Flask, request, Response
 from flask_restx import Api, Resource
+import json
 
 from server.instance import server
 from api.telegram import sendMessage, setWebhook, setCommands
-import json
-
 from middleware.identificateMessageFromTelegram import identificateMessageFromTelegram
+
 
 app, api = server.app, server.api
 

@@ -1,7 +1,6 @@
 from api.telegram import sendMessage
 
 from database.queries.analises import selectLastAnalise
-from datetime import datetime
 
 class Analise():
   def __init__ (self):

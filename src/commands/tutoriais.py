@@ -1,4 +1,5 @@
 from api.telegram import sendMessage
+
 import time
 
 class Tutoriais():

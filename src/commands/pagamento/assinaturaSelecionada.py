@@ -1,7 +1,7 @@
 from api.telegram import updateMessage
 from database.queries.products import selectProduct
-from dateutil.relativedelta import relativedelta
 
+from dateutil.relativedelta import relativedelta
 from datetime import date
 
 

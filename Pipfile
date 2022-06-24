@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+requests = "*"
+stripe = "*"
+flask = "*"
+flask-restx = "*"
+mysql = "*"
+mysql-connector = "*"
+python-dateutil = "*"
+python-dotenv = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"

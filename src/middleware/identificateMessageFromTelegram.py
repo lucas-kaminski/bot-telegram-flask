@@ -2,9 +2,9 @@ from flask import request, Response
 
 from database.queries.users import selectUser, insertUser, updateUser
 from database.queries.channels import selectChannel, insertChannel, updateChannel
-
 from api.telegram import sendMessage
 from utils.validation import isValidEmail, isValidPhone
+
 
 
 def identificateMessageFromTelegram():

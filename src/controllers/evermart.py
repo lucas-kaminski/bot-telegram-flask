@@ -1,8 +1,7 @@
-from flask import Flask, request
-from flask_restx import Api, Resource
-
 from server.instance import server
 
+from flask import Flask, request
+from flask_restx import Api, Resource
 
 app, api = server.app, server.api
 

@@ -1,5 +1,10 @@
 from connection import Connection
+
 from datetime import date
+
+from dotenv import load_dotenv
+load_dotenv()
+import os
 
 now = date.today()
 
@@ -176,8 +181,7 @@ def createUsersTable():
 
 def insertData():
   connection = Connection()
-  #TODO: Fazer um insert de usuário baseando o chat id no .env
-  telegram_id = 5470742074
+  telegram_id = os.environ.get('CHAT_ID_TELEGRAM_DEVELOPER')
   name = "Teste"
   email = "teste@teste.com.br"
   phone = '419999999999'

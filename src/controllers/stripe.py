@@ -3,13 +3,17 @@ from flask_restx import Api, Resource
 import json
 import stripe
 
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+stripe.api_key = os.environ.get('STRIPE_API_KEY')
+
 from dateutil.relativedelta import relativedelta
 from datetime import date
 
 from server.instance import server
-
 from middleware.validateWebhookFromStripe import validateWebhookFromStripe
-
 from database.queries.products import selectAllProducts, updateProduct, selectProduct
 from database.queries.users import updateUser, selectUser
 from database.queries.vip_users import selectVipUser, insertVipUser, updateVipUser

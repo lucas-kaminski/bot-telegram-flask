@@ -1,6 +1,7 @@
+from api.telegram import sendPhoto
+
 import requests
 import datetime as dt
-from api.telegram import sendPhoto
 
 class Fear():
   def __init__ (self):

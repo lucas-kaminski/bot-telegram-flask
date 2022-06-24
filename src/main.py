@@ -1,17 +1,17 @@
-from server.instance import server
-from time import strftime
 from flask import request
 
-import logging
-from logging.handlers import RotatingFileHandler
-
+from server.instance import server
 from controllers.telegram import Telegram, setCommands, setWebhook
 from controllers.stripe import SyncStripeProducts, StripeWebhook, SetWebhook
 from controllers.internal import NewCoin
 from controllers.evermart import EvermartWebhook
 
+import logging
+from logging.handlers import RotatingFileHandler
+
 import json
 
+from time import strftime
 
 app = server.app
 

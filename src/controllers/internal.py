@@ -3,10 +3,8 @@ from flask_restx import Api, Resource
 import json
 
 from server.instance import server
-
 from database.queries.users import selectAllUsers
 from database.queries.channels import selectAllChannels
-
 from api.telegram import sendMessage
 from commands.listarmoedas import Listarmoedas
 

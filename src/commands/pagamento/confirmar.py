@@ -1,7 +1,7 @@
 from api.telegram import updateMessage
 from database.queries.products import selectProduct
-import datetime
 
+import datetime
 import stripe
 
 class Confirmar():

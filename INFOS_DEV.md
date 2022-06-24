@@ -1,12 +1,9 @@
 ## Pontos a se desenvolver
-- [ ] Manipulação dos dados via .env
-  - [ ] Usar local e não global
 - [ ] Linting and formatting
 
 ## Necessário um double check
 - [ ] Fluxo do sistema stripe, está sendo feito o fluxo completo mas necessário validar cada ponto para evitar b.o (produtos (preço, recorrência, ...), assinaturas (ativa, desativa, vencida, ...), customers, etc...)
 - [ ] As rotas de set coloquei em cada controller correspondente e a de atualização da moedas no internal (verificar um nome melhor para a rota que conversa com outros sistemas)
-- [ ] a
 
 ## Possíveis desenvolvimento (analisar e se necessário, implementar)
 - [ ] Não existe uma um arquivo de api da stripe, está sendo feito a manipulação direta no `import stripe`
