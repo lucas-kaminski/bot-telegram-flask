@@ -1,5 +1,5 @@
 ## Pontos a se desenvolver
-- [ ] Linting and formatting
+
 
 ## Necessário um double check
 - [ ] Fluxo do sistema stripe, está sendo feito o fluxo completo mas necessário validar cada ponto para evitar b.o (produtos (preço, recorrência, ...), assinaturas (ativa, desativa, vencida, ...), customers, etc...)
