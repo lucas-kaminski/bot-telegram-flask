@@ -6,27 +6,34 @@ from server.instance import server
 from api.telegram import sendMessage, setWebhook, setCommands
 from middleware.identificateMessageFromTelegram import identificateMessageFromTelegram
 
+from dotenv import load_dotenv
+load_dotenv()
+import os
 
 app, api = server.app, server.api
-
 
 @api.route("/telegram/set/webhook")
 class SetWebhook(Resource):
     def post(self):
-        url = request.get_json()["url"]
-        setWebhook(url + "/telegram/webhook")
-        return True
-
+        if os.environ.get('ENVIRONMENT') == 'production':
+            return Response(status=403)
+        else:
+            print('Setting webhook in development mode')
+            url = request.get_json()["url"]
+            setWebhook(url + "/telegram/webhook")
+            return True
 
 @api.route("/telegram/set/commands")
 class SetCommands(Resource):
     def put(self):
-        setCommands()
-        return True
-
+        if os.environ.get('ENVIRONMENT') == 'production':
+            return Response(status=403)
+        else:
+            print('Setting commands in development mode')
+            setCommands()
+            return True
 
 app.before_request(identificateMessageFromTelegram)
-
 
 @api.route("/telegram/webhook")
 class Telegram(Resource):

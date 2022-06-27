@@ -61,26 +61,27 @@ class SyncStripeProducts(Resource):
 
         return jsonify({"status": "ok"})
 
-
 @api.route("/stripe/set/webhook")
 class SetWebhook(Resource):
     def post(self):
-        url = request.get_json()["url"]
+        if os.environ.get('ENVIRONMENT') == 'production':
+            return Response(status=403)
+        else:
+            print('Setting webhook in development mode')
+            url = request.get_json()["url"]
 
-        old_webhooks = stripe.WebhookEndpoint.list()
-        for i in old_webhooks["data"]:
-          stripe.WebhookEndpoint.delete(i["id"])
+            old_webhooks = stripe.WebhookEndpoint.list()
+            for i in old_webhooks["data"]:
+            stripe.WebhookEndpoint.delete(i["id"])
 
-        endpoint = stripe.WebhookEndpoint.create(
-            url=url + "/stripe/webhook",
-            enabled_events=["*"],
-        )
+            endpoint = stripe.WebhookEndpoint.create(
+                url=url + "/stripe/webhook",
+                enabled_events=["*"],
+            )
 
-        return endpoint["secret"]
-
+            return endpoint["secret"]
 
 app.before_request(validateWebhookFromStripe)
-
 
 @api.route("/stripe/webhook")
 class StripeWebhook(Resource):
