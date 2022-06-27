@@ -1,9 +1,9 @@
 _id: req_749a08ea8256448e8ffaa345b55bc7bc
 type: Request
 parentId: fld_daf887d222b640329f29b022fd02aede
-modified: 1656298963641
+modified: 1656333285476
 created: 1656297292236
-url: localhost:5000/stripe/set/webhook
+url: "{{ _.HOST }}/stripe/set/webhook"
 name: Set webhook
 description: ""
 method: POST

@@ -1,0 +1,14 @@
+_id: env_3d07b8ee94ca429b825143a04d59d59a
+type: Environment
+parentId: env_7683875f3d2941f6dce7ea607661071f50c9f865
+modified: 1656333215770
+created: 1656330612044
+name: PRODUCTION
+data:
+  HOST: https://glacial-hollows-50512.herokuapp.com
+dataPropertyOrder:
+  "&":
+    - HOST
+color: "#ffdd00"
+isPrivate: false
+metaSortKey: 1656330612044

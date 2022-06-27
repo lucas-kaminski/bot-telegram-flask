@@ -1,17 +1,17 @@
-_id: req_caf12cf6b2744534b897bc7b0aa9e566
+_id: req_b74e80c467d043108e1ca8383deee1cb
 type: Request
-parentId: fld_daf887d222b640329f29b022fd02aede
-modified: 1656333267432
-created: 1656298954008
-url: "{{ _.HOST }}/stripe/sync/products"
-name: Sync produts
+parentId: wrk_b6dc3619d9dc475d9e1de1c7f989b5a0
+modified: 1656333222435
+created: 1656332380539
+url: "{{ _.HOST }}/ping"
+name: Ping
 description: ""
-method: POST
+method: GET
 body: {}
 parameters: []
 headers: []
 authentication: {}
-metaSortKey: -1656298954008
+metaSortKey: -1656332380539
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true
