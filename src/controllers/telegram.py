@@ -9,8 +9,6 @@ from middleware.identificateMessageFromTelegram import identificateMessageFromTe
 
 app, api = server.app, server.api
 
-with open("/src/json/availableCommands.json", encoding="utf8") as json_file:
-    valid_commands = json.load(json_file)["available_commands"]
 
 @api.route("/telegram/set/webhook")
 class SetWebhook(Resource):
@@ -37,6 +35,10 @@ class Telegram(Resource):
         args = request.args
         message_type = args["message_type"]
         if message_type == "message":
+
+            with open("src/json/availableCommands.json", encoding="utf8") as json_file:
+                valid_commands = json.load(json_file)["available_commands"]
+
             message_sent_formatted = (
                 args["message_sent"].split(" ")[0].removeprefix("/")
             )

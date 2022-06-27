@@ -14,13 +14,14 @@ from time import strftime
 
 app = server.app
 
-# Logging
-handler = RotatingFileHandler("./src/logs/app.log", maxBytes=100000, backupCount=3)
-logger = logging.getLogger("tdm")
-logger.setLevel(logging.ERROR)
-logger.addHandler(handler)
 
 if __name__ == "__main__":
+    # Logging
+    handler = RotatingFileHandler("./src/logs/app.log", maxBytes=100000, backupCount=3)
+    logger = logging.getLogger("tdm")
+    logger.setLevel(logging.ERROR)
+    logger.addHandler(handler)
+
     # Settings
     setAvaliableCommandsJson()
 
@@ -32,6 +33,7 @@ if __name__ == "__main__":
 @app.after_request
 def after_request(response):
     timestamp = strftime("[%Y-%b-%d %H:%M:%S]")
+    logger = logging.getLogger("tdm")
     print(
         f"{timestamp} {request.remote_addr} {request.method} {request.scheme} {request.full_path} {response.status}"
     )
