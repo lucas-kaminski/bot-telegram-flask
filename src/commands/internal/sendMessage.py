@@ -21,6 +21,8 @@ class SendMessage:
         channel = callback_info.split("&")
         channel = channel[1].split("=")[1]
 
+        updateMessage(user["TELEGRAM_ID"], message_id, text="Está sendo feito o processo de envio de mensagem...")
+
         if user:
             for user in selectAllUsers():
                 print(user)
@@ -35,4 +37,4 @@ class SendMessage:
                     print(e)
                     print("Error: unable to send message")
 
-        # updateMessage(user["TELEGRAM_ID"], message_id, text="Mensagens enviadas com sucesso!")
+        updateMessage(user["TELEGRAM_ID"], message_id, text="Mensagens enviadas com sucesso!")

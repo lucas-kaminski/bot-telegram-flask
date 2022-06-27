@@ -58,7 +58,7 @@ Existem algumas sincronizações que são feitas pelo webhook, como ao criar um 
 
 - Ao enviar um botão de callback, o valor de `callback_data` deve ser o caminho relativo a partir da pasta `commands` até o arquivo de callbackm, por exemplo: <br/>
 `/news/financialNews` - Vai ser executado o módulo financialNews vindo do callback presente no botão presente no comando /news
-- Para criar uma nova rota, deve se criar o controller e realizar a importação do mesmo na `main.py`
+- Para criar uma nova rota, deve se criar o controller e realizar a importação das classes do mesmo na `main.py`
 - Para um middleware, se usa o método `before_request` da classe do app, e o arquivo deve ter uma validação das rotas através da condicional `if request.endpoint == 'route_name':`
 
 ## Deploy

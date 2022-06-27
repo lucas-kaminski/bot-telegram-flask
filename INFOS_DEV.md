@@ -1,6 +1,5 @@
 ## Pontos a se desenvolver
 - [ ] Importação de arquivos para o banco de dados
-- [ ] Rota adm para enviar mensagem
 - [ ] Webhook da evermart
   - [ ] Histórico de ação do usuário (trabalhar com qualquer gateway)
 - [ ] Histórico de interação do usuário
