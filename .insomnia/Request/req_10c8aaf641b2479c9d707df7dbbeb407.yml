@@ -1,9 +1,9 @@
 _id: req_10c8aaf641b2479c9d707df7dbbeb407
 type: Request
 parentId: fld_51c8436a8194450c84ae2e2b35d02228
-modified: 1656298902357
+modified: 1656333257628
 created: 1656297444396
-url: localhost:5000/telegram/set/webhook
+url: "{{ _.HOST }}/telegram/set/webhook"
 name: Set webhook
 description: ""
 method: POST
@@ -11,7 +11,7 @@ body:
   mimeType: application/json
   text: |-
     {
-    	"url":"https://6cf2-2804-14c-8783-8ce4-34e5-f620-d58f-12bc.sa.ngrok.io"
+    	"url":"https://4d27-2804-14c-8783-8ce4-93b7-380c-ca9e-6774.sa.ngrok.io"
     }
 parameters: []
 headers:

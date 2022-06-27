@@ -1,0 +1,14 @@
+_id: env_a443d39b40014b7ca1dae3db9a8279a0
+type: Environment
+parentId: env_7683875f3d2941f6dce7ea607661071f50c9f865
+modified: 1656333215219
+created: 1656330604885
+name: DEVELOPMENT
+data:
+  HOST: 0.0.0.0:5000
+dataPropertyOrder:
+  "&":
+    - HOST
+color: "#00ff40"
+isPrivate: false
+metaSortKey: 1656330604885
