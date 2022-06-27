@@ -3,6 +3,11 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
+[scripts]
+dev = "python ./src/main.py"
+recreate_database = "python ./src/database/script.py"
+formatter = "python -m black src"
+
 [packages]
 requests = "*"
 stripe = "*"

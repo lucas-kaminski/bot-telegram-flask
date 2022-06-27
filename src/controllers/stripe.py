@@ -69,7 +69,7 @@ class SetWebhook(Resource):
 
         old_webhooks = stripe.WebhookEndpoint.list()
         for i in old_webhooks["data"]:
-            stripe.WebhookEndpoint.delete(i["id"])
+          stripe.WebhookEndpoint.delete(i["id"])
 
         endpoint = stripe.WebhookEndpoint.create(
             url=url + "/stripe/webhook",

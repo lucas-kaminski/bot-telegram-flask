@@ -1,10 +1,13 @@
 import mysql.connector
+from dotenv import load_dotenv
+load_dotenv()
+import os
 
 config = {
-    "user": "b83db321a0c624",
-    "password": "4c21997e",
-    "host": "us-cdbr-east-05.cleardb.net",
-    "database": "heroku_a84f38c7a0a02f9",
+    "user": os.environ.get("MYSQL_USER"),
+    "password": os.environ.get("MYSQL_PASSWORD"),
+    "database": os.environ.get("MYSQL_DATABASE"),
+    "host": os.environ.get("MYSQL_HOST"),
     "raise_on_warnings": True,
 }
 
