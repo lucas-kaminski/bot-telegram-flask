@@ -1,0 +1,21 @@
+_id: req_caf12cf6b2744534b897bc7b0aa9e566
+type: Request
+parentId: fld_daf887d222b640329f29b022fd02aede
+modified: 1656298981175
+created: 1656298954008
+url: localhost:5000/stripe/sync/products
+name: Sync produts
+description: ""
+method: POST
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1656298954008
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

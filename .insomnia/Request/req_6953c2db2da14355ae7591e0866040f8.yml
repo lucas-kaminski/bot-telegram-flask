@@ -1,0 +1,21 @@
+_id: req_6953c2db2da14355ae7591e0866040f8
+type: Request
+parentId: fld_51c8436a8194450c84ae2e2b35d02228
+modified: 1656298924880
+created: 1656298898158
+url: localhost:5000/telegram/set/commands
+name: New Request
+description: ""
+method: PUT
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1656298898158
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
