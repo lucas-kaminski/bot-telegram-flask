@@ -1,9 +1,17 @@
 ## Pontos a se desenvolver
+- [ ] Importação de arquivos para o banco de dados
+- [ ] Rota adm para enviar mensagem
+- [ ] Webhook da evermart
+  - [ ] Histórico de ação do usuário (trabalhar com qualquer gateway)
+- [ ] Histórico de interação do usuário
+- [ ] CI/CD pro commit na master
+- [ ] Snippets
 
 
 ## Necessário um double check
 - [ ] Fluxo do sistema stripe, está sendo feito o fluxo completo mas necessário validar cada ponto para evitar b.o (produtos (preço, recorrência, ...), assinaturas (ativa, desativa, vencida, ...), customers, etc...)
 - [ ] As rotas de set coloquei em cada controller correspondente e a de atualização da moedas no internal (verificar um nome melhor para a rota que conversa com outros sistemas)
+- [ ] Todos os tipos de updates do telegram, eventos da stripe e webhooks da evermart
 
 ## Possíveis desenvolvimento (analisar e se necessário, implementar)
 - [ ] Não existe uma um arquivo de api da stripe, está sendo feito a manipulação direta no `import stripe`

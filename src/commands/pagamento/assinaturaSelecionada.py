@@ -24,7 +24,7 @@ class AssinaturaSelecionada:
                 }
             ],
             [{"text": "Retornar 🔙", "callback_data": "/pagamento/cartaoOuBoleto"}],
-            [{"text": "Cancelar ❌", "callback_data": "/pagamento/cancelar"}],
+            [{"text": "Cancelar ❌", "callback_data": "/internal/cancelar"}],
         ]
 
         duration_formatted = (

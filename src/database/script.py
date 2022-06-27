@@ -66,6 +66,7 @@ def dropAllTables():
 
 def createUsersTable():
     connection = Connection()
+
     try:
         connection.cursor.execute(
             """
@@ -93,11 +94,13 @@ def createUsersTable():
           USER_ID INT NOT NULL UNIQUE,
           COUNTERSIGN VARCHAR(255) NOT NULL,
           POSITION VARCHAR(255) NOT NULL,
+          ARCHIVE TEXT,
           PRIMARY KEY (ID),
           FOREIGN KEY (USER_ID) REFERENCES users(ID) ON DELETE CASCADE
         )
       """
         )
+        connection.cursor.execute('ALTER TABLE adm_users MODIFY ARCHIVE TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin')
         print("Table adm_users created")
     except:
         print("Error: unable to create table adm_users")
@@ -198,6 +201,15 @@ def createUsersTable():
 
 def insertData():
     connection = Connection()
+
+    telegram_id = os.environ.get("CHAT_ID_TELEGRAM_DEVELOPER")
+    connection.cursor.execute(
+        """
+        INSERT INTO channels (TELEGRAM_ID, NAME) VALUES
+        VALUES (%s, 'TESTE')
+        """, (telegram_id,)
+    )
+
     telegram_id = os.environ.get("CHAT_ID_TELEGRAM_DEVELOPER")
     name = "Teste"
     email = "teste@teste.com.br"
@@ -206,40 +218,23 @@ def insertData():
 
     connection.cursor.execute(
         """
-    INSERT INTO users (TELEGRAM_ID, NAME, EMAIL, PHONE, STATUS)
-    VALUES (%s, %s, %s, %s, %s)
+    INSERT INTO users (ID, TELEGRAM_ID, NAME, EMAIL, PHONE, STATUS)
+    VALUES (%s, %s, %s, %s, %s, %s)
   """,
-        (telegram_id, name, email, phone, status),
+        ('1', telegram_id, name, email, phone, status),
     )
     print("User inserted")
 
-    connection.cursor.execute(
-        """
-    SELECT * FROM users WHERE TELEGRAM_ID = %s
-  """,
-        (telegram_id,),
-    )
-
-    user_id = connection.cursor.fetchone()["ID"]
     position = "ADMIN"
     countersign = "TESTE"
     connection.cursor.execute(
         """
-    INSERT INTO adm_users (USER_ID, COUNTERSIGN, POSITION)
-    VALUES (%s, %s, %s)
+    INSERT INTO adm_users (ID, USER_ID, COUNTERSIGN, POSITION)
+    VALUES (%s, %s, %s, %s)
   """,
-        (user_id, countersign, position),
+        ('1', '1', countersign, position),
     )
     print("Admin user inserted")
-
-    connection.cursor.execute(
-        """
-    SELECT * FROM adm_users WHERE USER_ID = %s
-  """,
-        (user_id,),
-    )
-
-    adm_user_id = connection.cursor.fetchone()["ID"]
 
     connection.cursor.execute(
         """
@@ -276,7 +271,7 @@ Lembrando que o mercado das criptomoedas é um mercado extremamente volátil, es
         """
     INSERT INTO analises (TITLE, BODY, LINK, AUTHOR_ID, UPDATED_AT, EDITED_AT) VALUES (%s, %s, %s, %s, %s, %s)
     """,
-        (title, body, link, adm_user_id, updated_at, edited_at),
+        (title, body, link, '1', updated_at, edited_at),
     )
     print("Analises inserted")
 

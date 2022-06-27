@@ -27,6 +27,7 @@ def after_request(response):
     )
     return response
 
+
 if __name__ == "__main__":
     # Logging
     handler = RotatingFileHandler("./src/logs/app.log", maxBytes=100000, backupCount=3)
@@ -39,4 +40,3 @@ if __name__ == "__main__":
 
     # Server
     server.run()
-

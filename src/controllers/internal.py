@@ -3,10 +3,12 @@ from flask_restx import Api, Resource
 import json
 
 from server.instance import server
-from database.queries.users import selectAllUsers
+from database.queries.users import selectAllUsers, selectUser
+from database.queries.adm_users import updateAdmUser
 from database.queries.channels import selectAllChannels
 from api.telegram import sendMessage
 from commands.listarmoedas import Listarmoedas
+from middleware.authenticateAdmin import authenticateAdmin
 
 app, api = server.app, server.api
 
@@ -16,7 +18,54 @@ class Ping(Resource):
     def get(self):
         return "Pong"
 
-@api.route("/internal/newcoin")
+app.before_request(authenticateAdmin)
+@api.route("/admin/new/message")
+class NewMessage(Resource):
+    def post(self):
+        message = request.get_json()['message']
+
+        send_to_users = request.get_json()['send_to_users']
+        send_to_channels = request.get_json()['send_to_channels']
+
+        adm_user = request.args['adm_user']
+
+        user = selectUser(id=adm_user['ID'])
+
+        message_to_adm = 'Ao confirmar, a mensagem a seguir será enviada para: \n\n'
+        if send_to_users is not None:
+            message_to_adm += '*Usuários*'
+            message_to_adm += '\n'
+        if send_to_channels is not None:
+            message_to_adm += '*Canais*'
+            message_to_adm += '\n'
+        message_to_adm += '\n'
+        message_to_adm += message
+
+        callback_info = 'user=true' if send_to_users is not None else 'user=false'
+        callback_info += '&channel=true' if send_to_channels is not None else '&channel=false'
+
+        buttons = [
+            [
+                {
+                    'text':'Confirmar',
+                    'callback_data':'/internal/sendMessage:' + callback_info
+                }
+            ],
+            [
+                {
+                    'text':'Cancelar',
+                    'callback_data':'/internal/cancelar'
+                }
+            ]
+        ]
+
+        updateAdmUser(id=adm_user['ID'], archive=message)
+
+        sendMessage(chat_id=user['TELEGRAM_ID'], text=message_to_adm, buttons=buttons)
+
+        return 'Mensagem enviada'
+
+@api.route("/admin/new/coin")
 class NewCoin(Resource):
     def post(self):
         symbol = request.get_json()["symbol"]
