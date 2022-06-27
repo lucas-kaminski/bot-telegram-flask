@@ -21,20 +21,31 @@ class SendMessage:
         channel = callback_info.split("&")
         channel = channel[1].split("=")[1]
 
-        updateMessage(user["TELEGRAM_ID"], message_id, text="Está sendo feito o processo de envio de mensagem...")
+        updateMessage(
+            user["TELEGRAM_ID"],
+            message_id,
+            text="Está sendo feito o processo de envio de mensagem...",
+        )
 
         if user:
             for user in selectAllUsers():
                 print(user)
-                sendMessage(chat_id=user["TELEGRAM_ID"], text=adm_user['ARCHIVE'].decode())
+                sendMessage(
+                    chat_id=user["TELEGRAM_ID"], text=adm_user["ARCHIVE"].decode()
+                )
 
         if channel:
             for channel in selectAllChannels():
                 print(channel)
                 try:
-                    sendMessage(chat_id=channel["TELEGRAM_ID"], text=adm_user['ARCHIVE'].decode())
+                    sendMessage(
+                        chat_id=channel["TELEGRAM_ID"],
+                        text=adm_user["ARCHIVE"].decode(),
+                    )
                 except Exception as e:
                     print(e)
                     print("Error: unable to send message")
 
-        updateMessage(user["TELEGRAM_ID"], message_id, text="Mensagens enviadas com sucesso!")
+        updateMessage(
+            user["TELEGRAM_ID"], message_id, text="Mensagens enviadas com sucesso!"
+        )

@@ -14,6 +14,7 @@ def selectAdmUser(id=None):
     connection.close()
     return adm_user
 
+
 def updateAdmUser(id, archive):
     connection = Connection()
     cursor = connection.cursor

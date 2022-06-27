@@ -100,7 +100,9 @@ def createUsersTable():
         )
       """
         )
-        connection.cursor.execute('ALTER TABLE adm_users MODIFY ARCHIVE TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin')
+        connection.cursor.execute(
+            "ALTER TABLE adm_users MODIFY ARCHIVE TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin"
+        )
         print("Table adm_users created")
     except:
         print("Error: unable to create table adm_users")
@@ -207,7 +209,8 @@ def insertData():
         """
         INSERT INTO channels (TELEGRAM_ID, NAME) VALUES
         VALUES (%s, 'TESTE')
-        """, (telegram_id,)
+        """,
+        (telegram_id,),
     )
 
     telegram_id = os.environ.get("CHAT_ID_TELEGRAM_DEVELOPER")
@@ -221,7 +224,7 @@ def insertData():
     INSERT INTO users (ID, TELEGRAM_ID, NAME, EMAIL, PHONE, STATUS)
     VALUES (%s, %s, %s, %s, %s, %s)
   """,
-        ('1', telegram_id, name, email, phone, status),
+        ("1", telegram_id, name, email, phone, status),
     )
     print("User inserted")
 
@@ -232,7 +235,7 @@ def insertData():
     INSERT INTO adm_users (ID, USER_ID, COUNTERSIGN, POSITION)
     VALUES (%s, %s, %s, %s)
   """,
-        ('1', '1', countersign, position),
+        ("1", "1", countersign, position),
     )
     print("Admin user inserted")
 
@@ -271,7 +274,7 @@ Lembrando que o mercado das criptomoedas é um mercado extremamente volátil, es
         """
     INSERT INTO analises (TITLE, BODY, LINK, AUTHOR_ID, UPDATED_AT, EDITED_AT) VALUES (%s, %s, %s, %s, %s, %s)
     """,
-        (title, body, link, '1', updated_at, edited_at),
+        (title, body, link, "1", updated_at, edited_at),
     )
     print("Analises inserted")
 
