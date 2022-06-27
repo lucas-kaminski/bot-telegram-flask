@@ -1,0 +1,29 @@
+_id: req_749a08ea8256448e8ffaa345b55bc7bc
+type: Request
+parentId: fld_daf887d222b640329f29b022fd02aede
+modified: 1656333285476
+created: 1656297292236
+url: "{{ _.HOST }}/stripe/set/webhook"
+name: Set webhook
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"url":"https://6cf2-2804-14c-8783-8ce4-34e5-f620-d58f-12bc.sa.ngrok.io"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_29c08f4fda014c519d186adb62905753
+authentication: {}
+metaSortKey: -1656297292236
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,21 @@
+_id: req_b74e80c467d043108e1ca8383deee1cb
+type: Request
+parentId: wrk_b6dc3619d9dc475d9e1de1c7f989b5a0
+modified: 1656333222435
+created: 1656332380539
+url: "{{ _.HOST }}/ping"
+name: Ping
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1656332380539
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

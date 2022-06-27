@@ -1,0 +1,11 @@
+{
+  "coins": [
+    { "symbol": "BTCUSDZ22", "last_price": "20907.50" },
+    { "symbol": "BTCUSDM22", "last_price": "20912.00" },
+    { "symbol": "BTCUSDU22", "last_price": "20838.50" },
+    { "symbol": "BTCUSDT", "last_price": "20789.50" },
+    { "symbol": "BTCUSD", "last_price": "20766.00" },
+    { "symbol": "PYTHON", "last_price": "10000.00" },
+    { "symbol": "NODE", "last_price": "5.00" }
+  ]
+}

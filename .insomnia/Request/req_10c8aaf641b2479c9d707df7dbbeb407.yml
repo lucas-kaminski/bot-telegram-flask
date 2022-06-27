@@ -1,0 +1,29 @@
+_id: req_10c8aaf641b2479c9d707df7dbbeb407
+type: Request
+parentId: fld_51c8436a8194450c84ae2e2b35d02228
+modified: 1656333257628
+created: 1656297444396
+url: "{{ _.HOST }}/telegram/set/webhook"
+name: Set webhook
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"url":"https://4d27-2804-14c-8783-8ce4-93b7-380c-ca9e-6774.sa.ngrok.io"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_29c08f4fda014c519d186adb62905753
+authentication: {}
+metaSortKey: -1656297292186
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
