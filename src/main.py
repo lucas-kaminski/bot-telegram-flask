@@ -14,20 +14,6 @@ from time import strftime
 
 app = server.app
 
-if __name__ == "__main__":
-    # Logging
-    handler = RotatingFileHandler("./src/logs/app.log", maxBytes=100000, backupCount=3)
-    logger = logging.getLogger("tdm")
-    logger.setLevel(logging.ERROR)
-    logger.addHandler(handler)
-
-    # Settings
-    setAvaliableCommandsJson()
-
-    # Server
-    print(request.environ.get('REMOTE_PORT'))
-    server.run()
-
 # https://gist.github.com/alexaleluia12/e40f1dfa4ce598c2e958611f67d28966
 @app.after_request
 def after_request(response):
@@ -40,3 +26,17 @@ def after_request(response):
         f"{timestamp} {request.remote_addr} {request.method} {request.scheme} {request.full_path} {response.status}"
     )
     return response
+
+if __name__ == "__main__":
+    # Logging
+    handler = RotatingFileHandler("./src/logs/app.log", maxBytes=100000, backupCount=3)
+    logger = logging.getLogger("tdm")
+    logger.setLevel(logging.ERROR)
+    logger.addHandler(handler)
+
+    # Settings
+    setAvaliableCommandsJson()
+
+    # Server
+    server.run()
+
