@@ -11,6 +11,11 @@ from commands.listarmoedas import Listarmoedas
 app, api = server.app, server.api
 
 
+@api.route("/ping")
+class Ping(Resource):
+    def get(self):
+        return "Pong"
+
 @api.route("/internal/newcoin")
 class NewCoin(Resource):
     def post(self):

@@ -4,7 +4,7 @@ from server.instance import server
 from utils.functions import setAvaliableCommandsJson
 from controllers.telegram import Telegram, setCommands, setWebhook
 from controllers.stripe import SyncStripeProducts, StripeWebhook, SetWebhook
-from controllers.internal import NewCoin
+from controllers.internal import NewCoin, Ping
 from controllers.evermart import EvermartWebhook
 
 import logging
@@ -27,7 +27,6 @@ if __name__ == "__main__":
 
     # Server
     server.run()
-
 
 # https://gist.github.com/alexaleluia12/e40f1dfa4ce598c2e958611f67d28966
 @app.after_request
