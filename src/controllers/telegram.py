@@ -9,7 +9,7 @@ from middleware.identificateMessageFromTelegram import identificateMessageFromTe
 
 app, api = server.app, server.api
 
-with open("src/json/availableCommands.json", encoding="utf8") as json_file:
+with open("/src/json/availableCommands.json", encoding="utf8") as json_file:
     valid_commands = json.load(json_file)["available_commands"]
 
 @api.route("/telegram/set/webhook")
