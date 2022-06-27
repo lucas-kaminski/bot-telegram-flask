@@ -65,6 +65,7 @@ Existem algumas sincronizações que são feitas pelo webhook, como ao criar um 
 O deploy foi realizado na heroku, no [link](https://secure-fortress-69045.herokuapp.com/).
 
 ## Comandos úteis
+### Desenvolvimento
 <!-- table -->
 | CMD | Descrição |
 | ------ | ---------- |
@@ -75,4 +76,10 @@ O deploy foi realizado na heroku, no [link](https://secure-fortress-69045.heroku
 | `python -m pipenv run dev` | Inicialização do server em localhost. |
 | `python -m pipenv run recreate_database` | Script de drop e recreate do banco de dados. |
 | `python -m pipenv run formatter` | Formatação padrão no código. |
+
+### Deploy
+| CMD | Descrição |
+| ------ | ---------- |
+| `git push heroku master` | Envia o projeto para a heroku. |
 | `heroku config:set STRIPE_WEBHOOK_SECRET_KEY=whsec_` | Define as variáveis de ambiente no heroku. |
+| `heroku logs --tail` | Verifica o log do projeto. |
