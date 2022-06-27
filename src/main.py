@@ -14,7 +14,6 @@ from time import strftime
 
 app = server.app
 
-
 if __name__ == "__main__":
     # Logging
     handler = RotatingFileHandler("./src/logs/app.log", maxBytes=100000, backupCount=3)
@@ -26,6 +25,7 @@ if __name__ == "__main__":
     setAvaliableCommandsJson()
 
     # Server
+    print(request.environ.get('REMOTE_PORT'))
     server.run()
 
 # https://gist.github.com/alexaleluia12/e40f1dfa4ce598c2e958611f67d28966
