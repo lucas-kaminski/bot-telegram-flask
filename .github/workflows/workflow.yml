@@ -18,10 +18,10 @@ jobs:
         python-version: ${{ matrix.python-version }}
 
     - name: Install dependencies
-        run: |
-        python -m pip install --upgrade pip
-        python -m pip install pipenv flake8 mypy
-        pipenv install
+      run: |
+      python -m pip install --upgrade pip
+      python -m pip install pipenv flake8 mypy
+      pipenv install
 
     - name: Lint with black
       uses: psf/black@stable
