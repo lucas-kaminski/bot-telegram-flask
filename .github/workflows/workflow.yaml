@@ -28,7 +28,8 @@ jobs:
       id: action_black
       with:
         black_args: "."
-    - name: Create Pull Request
+
+    - name: Create a pull request if there are any linting errors
       if: steps.action_black.outputs.is_formatted == 'true'
       uses: peter-evans/create-pull-request@v3
       with:
@@ -41,15 +42,10 @@ jobs:
           base: ${{ github.head_ref }} # Creates pull request onto pull request or commit branch
           branch: actions/black
 
-    - name: Lint with flake8
-      id: action_flake8
-      run: |
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=120 --statistics
-        if [ $? -ne 0 ]; then
-          echo ":x: Flake8 found errors"
-          exit 1
-        fi
+    - name: flake8 Lint
+      uses: reviewdog/action-flake8@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Check types with mypy
       run: mypy src
