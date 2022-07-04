@@ -19,9 +19,9 @@ jobs:
 
     - name: Install dependencies
       run: |
-      python -m pip install --upgrade pip
-      python -m pip install pipenv flake8 mypy
-      pipenv install
+        python -m pip install --upgrade pip
+        python -m pip install pipenv flake8 mypy
+        pipenv install
 
     - name: Lint with black
       uses: psf/black@stable
