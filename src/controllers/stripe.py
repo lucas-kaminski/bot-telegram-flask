@@ -21,6 +21,8 @@ from database.queries.vip_users import selectVipUser, insertVipUser, updateVipUs
 app, api = server.app, server.api
 
 import json
+
+
 @api.route("/stripe/sync/products")
 class SyncStripeProducts(Resource):
     def post(self):
