@@ -1,5 +1,6 @@
 import json
 
+
 def setAvaliableCommandsJson():
     with open("src/json/commands.json", encoding="utf8") as json_file:
         commands = json.load(json_file)["commands"]

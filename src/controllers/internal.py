@@ -16,6 +16,7 @@ class Ping(Resource):
     def get(self):
         return "Pong"
 
+
 @api.route("/internal/newcoin")
 class NewCoin(Resource):
     def post(self):
