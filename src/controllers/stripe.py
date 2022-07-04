@@ -1,6 +1,5 @@
 from flask import Flask, request, Response, jsonify
 from flask_restx import Api, Resource
-import json
 import stripe
 
 import os
@@ -21,7 +20,7 @@ from database.queries.vip_users import selectVipUser, insertVipUser, updateVipUs
 
 app, api = server.app, server.api
 
-
+import json
 @api.route("/stripe/sync/products")
 class SyncStripeProducts(Resource):
     def post(self):
