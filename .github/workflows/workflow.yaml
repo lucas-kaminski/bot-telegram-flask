@@ -46,6 +46,9 @@ jobs:
       uses: reviewdog/action-flake8@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        lever: error
+        fail_on_error: true
+        reporter: github-pr-review
 
     - name: Check types with mypy
       run: mypy src
