@@ -32,11 +32,8 @@ jobs:
     - name: Create a pull request if there are any linting errors
       if: steps.action_black.outputs.is_formatted == 'true'
       run: |
-        echo "No linting errors found."
-        else:
-        run: |
-            echo "Linting errors found."
-            exit 1
+        echo "Linting errors found."
+        exit 1
     #   uses: peter-evans/create-pull-request@v3
     #   with:
     #     token: ${{ secrets.GITHUB_TOKEN }}
